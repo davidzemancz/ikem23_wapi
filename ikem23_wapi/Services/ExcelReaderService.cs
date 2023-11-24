@@ -11,8 +11,15 @@ namespace ikem23_wapi.Services
     {
         public List<PatientRecord> ReadPatientRecords(string fileName, ImportTemplate template)
         {
+
+            using Stream stream = new StreamReader(fileName).BaseStream;
+            return ReadPatientRecords(stream, template);
+        }
+
+        public List<PatientRecord> ReadPatientRecords(Stream stream, ImportTemplate template)
+        {
             var importObj = new List<PatientRecord>();
-            var workbook = new XLWorkbook(fileName);
+            var workbook = new XLWorkbook(stream);
             var ws1 = workbook.Worksheet(2);
 
 
