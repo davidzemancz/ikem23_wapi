@@ -12,15 +12,10 @@ namespace ikem23_wapi
         {
             var importObj = new List<PatientRecord>();
             var workbook = new XLWorkbook(fileName);
-            Dictionary<int, string> colIdName = new Dictionary<int, string>();
-            var ws1 = workbook.Worksheet(1);
+            var ws1 = workbook.Worksheet(2);
 
-            foreach (var hc in ws1.ColumnsUsed())
-            {
-                int colNum = hc.ColumnNumber();
-                colIdName.Add(colNum, ws1.Row(1).Cell(colNum).Value.ToString());
-            }
 
+            if (ws1.RowsUsed().Count() <= 0) return null;
             var rows = ws1.RangeUsed().RowsUsed().Skip(1); // Skip header row
             foreach (var row in rows)
             {
@@ -36,7 +31,7 @@ namespace ikem23_wapi
 
                     PropertyInfo propInfo = patientRecord.GetType().GetProperty(colDef.PropertyName);
                     if (propInfo == null) throw new Exception("Property not found");
-                    if(propInfo.PropertyType == typeof(string))
+                    if (propInfo.PropertyType == typeof(string))
                     {
                         propInfo.SetValue(patientRecord, cellVal.ToString());
                     }
@@ -45,9 +40,8 @@ namespace ikem23_wapi
                         propInfo.SetValue(patientRecord, cellVal.GetNumber());
                     }
 
-
-
                 }
+                importObj.Add(patientRecord);
             }
 
             return importObj;

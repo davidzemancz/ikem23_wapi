@@ -5,7 +5,9 @@
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public List<ColumnDefinition> ColumnMapping { get;}
+        public int sheetNum { get; set; }
+
+        public List<ColumnDefinition> ColumnMapping { get;} = new List<ColumnDefinition>();
     }
 
     public class ColumnDefinition
