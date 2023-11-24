@@ -8,6 +8,8 @@ namespace test
         public static void Main(string[] args)
         {
             string filepath = "test.xlsx";
+            ImportTemplate it = new ImportTemplate();
+            it.ColumnMapping.Add(new ColumnDefinition {ExcelColumn = "A", PropertyName = "IdBiopsie" });
             ImportTemplate it = loadTestTemplate();
             var a = ExcelReader.ReadExcelFile(filepath, it);
             Console.WriteLine("");

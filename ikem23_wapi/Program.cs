@@ -1,4 +1,6 @@
 
+using ikem23_wapi.Services;
+
 namespace ikem23_wapi
 {
     public class Program
@@ -13,6 +15,8 @@ namespace ikem23_wapi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSingleton<ImportTemplateDataService>();
 
             var app = builder.Build();
 
