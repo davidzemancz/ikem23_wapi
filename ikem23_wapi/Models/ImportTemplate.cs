@@ -1,4 +1,4 @@
-﻿namespace ikem23_wapi
+﻿namespace ikem23_wapi.Models
 {
     public class ImportTemplate
     {
@@ -8,7 +8,7 @@
 
         public int sheetNum { get; set; }
 
-        public List<ColumnDefinition> ColumnMapping { get;} = new List<ColumnDefinition>();
+        public List<ColumnDefinition> ColumnMapping { get; } = new List<ColumnDefinition>();
     }
 
     public class ColumnDefinition

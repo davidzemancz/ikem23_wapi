@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
-using ikem23_wapi;
+using ikem23_wapi.Models;
+using ikem23_wapi.Services;
 
 namespace test
 {
@@ -10,7 +11,7 @@ namespace test
             string filepath = "test.xlsx";
             ImportTemplate it = new ImportTemplate();
             it.ColumnMapping.Add(new ColumnDefinition {ExcelColumn = "A", PropertyName = "IdBiopsie" });
-            var a = ExcelReader.ReadExcelFile(filepath, it);
+            var a = new ExcelReaderService().ReadPatientRecords(filepath, it);
             Console.WriteLine("");
         }
 

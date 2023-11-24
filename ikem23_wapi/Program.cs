@@ -17,6 +17,8 @@ namespace ikem23_wapi
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddSingleton<ImportTemplateDataService>();
+            builder.Services.AddSingleton<PatientRecordDataService>();
+            builder.Services.AddScoped<ExcelReaderService>();
 
             var app = builder.Build();
 

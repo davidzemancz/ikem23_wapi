@@ -1,4 +1,6 @@
-﻿namespace ikem23_wapi.Services
+﻿using ikem23_wapi.Models;
+
+namespace ikem23_wapi.Services
 {
     public class PatientRecordDataService
     {

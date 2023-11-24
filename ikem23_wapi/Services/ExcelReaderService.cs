@@ -1,14 +1,15 @@
 ﻿using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using ikem23_wapi.Models;
 using System.Reflection;
 
-namespace ikem23_wapi
+namespace ikem23_wapi.Services
 {
 
-    public class ExcelReader
+    public class ExcelReaderService
     {
-        public static List<PatientRecord> ReadExcelFile(string fileName, ImportTemplate template)
+        public List<PatientRecord> ReadPatientRecords(string fileName, ImportTemplate template)
         {
             var importObj = new List<PatientRecord>();
             var workbook = new XLWorkbook(fileName);
