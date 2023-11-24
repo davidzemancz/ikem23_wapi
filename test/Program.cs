@@ -9,7 +9,7 @@ namespace test
         {
             string filepath = "test.xlsx";
             ImportTemplate it = new ImportTemplate();
-            it.ColumnMapping.Add(new ColumnDefinition {ExcelColumn = "A", PropertyName = "IdBiosepse" });
+            it.ColumnMapping.Add(new ColumnDefinition {ExcelColumn = "A", PropertyName = "IdBiopsie" });
             var a = ExcelReader.ReadExcelFile(filepath, it);
             Console.WriteLine("");
         }

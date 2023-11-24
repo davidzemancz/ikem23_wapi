@@ -4,7 +4,7 @@ namespace ikem23_wapi
 {
     public class PatientRecord
     {
-        public string IdBiosepse { get; set; }
+        public string IdBiopsie { get; set; }
         public string Projekt { get; set; }
         public string Diagnoza { get; set; }
         public string OnkologickyKod { get; set; }
