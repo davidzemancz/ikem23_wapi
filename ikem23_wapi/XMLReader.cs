@@ -31,6 +31,7 @@ namespace ikem23_wapi
                     string value  = row.Cell(colNum).Value.ToString();
                     var colDef = template.ColumnMapping.Find(x => x.ExcelColumn == col.ColumnLetter());
                     if (colDef == null) continue;
+
                 }
             }
 
