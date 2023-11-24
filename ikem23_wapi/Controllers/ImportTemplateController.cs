@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ikem23_wapi.Services;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +9,23 @@ namespace ikem23_wapi.Controllers
     [ApiController]
     public class ImportTemplateController : ControllerBase
     {
-        // GET: api/<ImportTemplateController>
+        private readonly ImportTemplateDataService _dataService;
+        public ImportTemplateController(ImportTemplateDataService dataService) 
+        {
+            _dataService = dataService;
+        }
+
         [HttpGet]
         public IEnumerable<ImportTemplate> Get()
         {
-            return new ImportTemplate[] { "value1", "value2" };
+            return new ImportTemplate[] { };
         }
 
-        // GET api/<ImportTemplateController>/5
-        [HttpGet("{id}")]
-        public ImportTemplate Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<ImportTemplateController>
         [HttpPost]
         public void Post([FromBody] ImportTemplate value)
         {
         }
 
-        // PUT api/<ImportTemplateController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] ImportTemplate value)
-        {
-        }
-
-        // DELETE api/<ImportTemplateController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        
     }
 }
