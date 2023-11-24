@@ -17,16 +17,23 @@ namespace ikem23_wapi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<ImportTemplate> Get()
+        public async Task<IEnumerable<ImportTemplate>> Get()
         {
-            return new ImportTemplate[] { };
+            return await _dataService.Get();
         }
 
         [HttpPost]
-        public void Post([FromBody] ImportTemplate value)
+        public async Task Post([FromBody] ImportTemplate value)
         {
+            await _dataService.Post(value);
         }
 
-        
+        [HttpDelete("/{id}")]
+        public async Task Delete(int id)
+        {
+            await _dataService.Delete(id);
+        }
+
+
     }
 }
