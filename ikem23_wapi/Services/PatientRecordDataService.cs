@@ -1,15 +1,15 @@
 ﻿namespace ikem23_wapi.Services
 {
-    public class ImportTemplateDataService
+    public class PatientRecordDataService
     {
-        public static List<ImportTemplate> Data { get; set; }
+        public static List<PatientRecord> Data { get; set; }
 
-        public async Task<List<ImportTemplate>> Get()
+        public async Task<List<PatientRecord>> Get()
         {
             return Data;
-        } 
+        }
 
-        public async Task Post(ImportTemplate importTemplate)
+        public async Task Post(PatientRecord importTemplate)
         {
             int index = Data.FindIndex(0, c => c.Id == importTemplate.Id);
             if (index == -1)
