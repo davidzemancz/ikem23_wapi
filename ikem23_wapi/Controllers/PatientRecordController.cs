@@ -29,7 +29,7 @@ namespace ikem23_wapi.Controllers
         }
 
         [HttpPost("create")]
-        public async Task Create(PatientRecordCreateDto valueDto)
+        public async Task Create([FromBody] PatientRecordCreateDto valueDto)
         {
             // TODO
             // 1. read excel files
