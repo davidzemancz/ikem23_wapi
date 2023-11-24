@@ -10,7 +10,7 @@
 
     public class ColumnDefinition
     {
-        public string Id { get; set; }
+        public string PropertyName { get; set; }
 
         public string ExcelColumn { get; set; }
     }

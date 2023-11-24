@@ -1,13 +1,14 @@
 ﻿using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
+using System.Reflection;
 
 namespace ikem23_wapi
 {
 
-    public class XMLReader
+    public class ExcelReader
     {
-        public static List<PatientRecord> ReadEXcelFile(string fileName, ImportTemplate template)
+        public static List<PatientRecord> ReadExcelFile(string fileName, ImportTemplate template)
         {
             var importObj = new List<PatientRecord>();
             var workbook = new XLWorkbook(fileName);
@@ -24,13 +25,27 @@ namespace ikem23_wapi
             foreach (var row in rows)
             {
                 var rowNumber = row.RowNumber();
-                var PatientRecord = new PatientRecord { };
+                var patientRecord = new PatientRecord { };
                 foreach (var col in ws1.ColumnsUsed())
                 {
                     int colNum = col.ColumnNumber();
-                    string value  = row.Cell(colNum).Value.ToString();
                     var colDef = template.ColumnMapping.Find(x => x.ExcelColumn == col.ColumnLetter());
                     if (colDef == null) continue;
+
+                    var cellVal = row.Cell(colNum).Value;
+
+                    PropertyInfo propInfo = patientRecord.GetType().GetProperty(colDef.PropertyName);
+                    if (propInfo == null) throw new Exception("Property not found");
+                    if(propInfo.PropertyType == typeof(string))
+                    {
+                        propInfo.SetValue(patientRecord, cellVal.ToString());
+                    }
+                    else if (propInfo.PropertyType == typeof(double))
+                    {
+                        propInfo.SetValue(patientRecord, cellVal.GetNumber());
+                    }
+
+
 
                 }
             }
