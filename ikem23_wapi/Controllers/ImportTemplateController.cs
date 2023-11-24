@@ -28,7 +28,7 @@ namespace ikem23_wapi.Controllers
             await _dataService.Post(value);
         }
 
-        [HttpDelete("/{id}")]
+        [HttpDelete("{id}")]
         public async Task Delete(int id)
         {
             await _dataService.Delete(id);
