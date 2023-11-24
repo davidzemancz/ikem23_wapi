@@ -13,5 +13,17 @@ namespace test
             var a = ExcelReader.ReadExcelFile(filepath, it);
             Console.WriteLine("");
         }
+
+        public static ImportTemplate loadTestTemplate()
+        {
+            ImportTemplate it = new ImportTemplate();
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumn = "A", PropertyName = "Chromosome" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumn = "B", PropertyName = "Region" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumn = "C", PropertyName = "Type" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumn = "F", PropertyName = "Length" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumn = "G", PropertyName = "Count" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumn = "H", PropertyName = "Coverage" });
+            return it;
+        }
     }
 }
