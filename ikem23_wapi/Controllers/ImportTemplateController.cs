@@ -22,6 +22,7 @@ namespace ikem23_wapi.Controllers
             return await _dataService.Get();
         }
 
+
         [HttpPost]
         public async Task Post([FromBody] ImportTemplate value)
         {

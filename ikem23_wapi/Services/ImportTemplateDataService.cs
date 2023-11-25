@@ -33,11 +33,10 @@ namespace ikem23_wapi.Services
 
         public async Task Post(ImportTemplate importTemplate)
         {
-            ConceptMap cm = new();
-
-            // TODO petr mapovani
+            ConceptMap cm = MapImportTemplateToConceptMap(importTemplate);
 
             var response = await _httpClient.PostAsJsonAsync(Globals.FHIRServerUri + "/ConceptMap", cm);
+            string err = await response.Content.ReadAsStringAsync();
             response.EnsureSuccessStatusCode();
         }
 
@@ -49,14 +48,14 @@ namespace ikem23_wapi.Services
         {
             ConceptMap cm = new ConceptMap();
             cm.Name = it.Name;
-            cm.Id = it.Id;
+            cm.Id = it.Id.ToString();
 
             List<Group> groups = new List<Group>();
-            cm.Groups = groups;
+            cm.Group = groups;
             List<Element> elements = new List<Element>();
             Group g = new Group();
             groups.Add(g);
-            g.Elements = elements;
+            g.Element = elements;
 
             foreach (var cd in it.ColumnMapping)
             {
@@ -66,7 +65,7 @@ namespace ikem23_wapi.Services
                 List<Target> targets = new List<Target>();
                 Target t = new Target();
                 targets.Add(t);
-                e.Targets = targets;
+                e.Target = targets;
                 t.Code = cd.ExcelColumnLetter;
             }
 
@@ -78,17 +77,21 @@ namespace ikem23_wapi.Services
         {
             ImportTemplate it = new ImportTemplate();
             it.Name = cm.Name;
-            it.Id = cm.Id;
+            it.Id = int.Parse(cm.Id);
 
             List<ColumnDefinition> ColumnMapping = new List<ColumnDefinition>();
             it.ColumnMapping = ColumnMapping;
-            Group group = cm.Groups[0];
+            Group group = cm.Group?.FirstOrDefault();
 
-            foreach (var e in group.Elements)
+
+            if (group != null)
             {
-                Target t = e.Targets[0];
-                ColumnDefinition cd = new ColumnDefinition { Id = e.Code.ToString(), ExcelColumnLetter = t.Code.ToString() };
-                ColumnMapping.Add(cd);
+                foreach (var e in group.Element)
+                {
+                    Target t = e.Target[0];
+                    ColumnDefinition cd = new ColumnDefinition { Id = e.Code.ToString(), ExcelColumnLetter = t.Code.ToString() };
+                    ColumnMapping.Add(cd);
+                }
             }
 
             return it;
