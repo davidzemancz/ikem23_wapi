@@ -1,46 +1,63 @@
 ﻿using System.Reflection.Metadata.Ecma335;
+using Newtonsoft.Json;
+
+
+
 
 namespace ikem23_wapi.Models
 {
     public class PatientRecord
     {
         public int Id { get; set; }
+        public int KodPojistovna { get; set; }
+        public int PatientId { get; set; }  // rodny cislo 
+    }
+
+    public class DiagnosticReport
+    {
+        public int PatientId { get; set; }
         public string IdBiopsie { get; set; }
-        public string Projekt { get; set; }
         public string Diagnoza { get; set; }
         public string OnkologickyKod { get; set; }
-        public int KodPojistovna { get; set; }
-        public DateTime PrijemLMP { get; set; }
+        public DateTime PrijemLMP { get; set; }  // effectiveDateTime
         public DateTime UzavreniLMP { get; set; }
-        public TimeSpan DobaOdezvy => UzavreniLMP - PrijemLMP;
-        public int PatientId { get; set; }
-        public string IGVKontrola { get; set; }
-        public string MedeaZapis { get; set; }
-        public string Sekvenator { get; set; }
-        public string PanelGenu { get; set; }
         public double PomerNadorovychBunek { get; set; }
-        public double DNAKoncPo1PCR { get; set; }
-        public double DNAPrumernePokryti { get; set; }
-        public int DNATMB { get; set; }
-        public string DNAMSI { get; set; }
-        public string HRD { get; set; }
-        public string GenomBuildPuvodni { get; set; }
-        public string Chromosome { get; set; }
-        public string Region { get; set; }
-        public string Type { get; set; }
-        public string Reference { get; set; }
-        public string Allele { get; set; }
-        public string Length { get; set; }
-        public string Count { get; set; }
-        public string Coverage { get; set; }
-        public string Frequency { get; set; }
-        public string ForwardReverseBalance { get; set; }
-        public string AverageQuality { get; set; }
-        public string GeneName { get; set; }
-        public string CodingRegionChange { get; set; }
-        public string AminoAcidChange { get; set; }
-        public string ExonNumber { get; set; }
-        public string TypeOfMutation { get; set; }
+        public Observation observation { get; set; }
+    }
 
+    public class Observation
+    {
+        public string ResourceType { get; set; }
+        public string Status { get; set; }
+        public Code Code { get; set; }
+        public string ValueString { get; set; }
+        public List<Component> Component { get; set; }
+    }
+
+    public class Code
+    {
+        public string Text { get; set; }
+    }
+
+    public class Component
+    {
+        public Code Code { get; set; }
+        public string ValueString { get; set; }
+    }
+
+
+    public class MolecularSequence
+    {
+        public int Id { get; set; }
+        public string Type { get; set; }
+        public string patient { get; set; } //tohle ma byt reference
+        public string performer { get; set; }
+        public int coordinateSystem { get; set; }
+
+        //      "variant": [{"start": 2, "end": 3, "observedAllele": "C", "referenceAllele": "G"}],
+        //      "observedSeq": "AGT",
+        //      "quality": [{"type": "snp","score": {"value": 30}]
+
+        public int readCoverage { get; set; }
     }
 }

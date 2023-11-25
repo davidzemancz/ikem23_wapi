@@ -11,7 +11,7 @@ namespace test
             string filepath = "test.xlsx";
             ImportTemplate it = new ImportTemplate();
             it.ColumnMapping.Add(new ColumnDefinition {ExcelColumn = "A", PropertyName = "IdBiopsie" });
-            var a = new ExcelReaderService().ReadPatientRecords(filepath, it);
+            var a = new ExcelReaderService().ReadMolecularSequences(filepath, it);
             Console.WriteLine("");
         }
 
