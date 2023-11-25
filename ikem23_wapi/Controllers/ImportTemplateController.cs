@@ -49,7 +49,7 @@ namespace ikem23_wapi.Controllers
             var pr = new PatientRecord();
             foreach(var prop in pr.GetType().GetProperties())
             {
-                list.Add(new ColumnDefinition(prop.Name, "", ""));
+                list.Add(new ColumnDefinition(prop.Name, ColumnDefinition.Undef, ""));
             }
 
             return list;

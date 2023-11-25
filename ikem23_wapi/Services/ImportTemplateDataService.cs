@@ -69,6 +69,7 @@ namespace ikem23_wapi.Services
                 Element e = new Element();
                 elements.Add(e);
                 e.Code = cd.Id;
+                
                 List<Target> targets = new List<Target>();
                 Target t = new Target();
                 targets.Add(t);

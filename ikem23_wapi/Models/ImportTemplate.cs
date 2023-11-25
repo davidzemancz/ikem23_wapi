@@ -11,6 +11,7 @@
 
     public class ColumnDefinition
     {
+        public const string Undef = "<nevyplněno>";
         public ColumnDefinition() { }
         public ColumnDefinition(string id, string excelColumn, string excelColumnHeader)
         {
