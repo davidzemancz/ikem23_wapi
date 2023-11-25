@@ -82,6 +82,7 @@ namespace ikem23_wapi.Services
             it.Id = cm.Id;
 
             List<ColumnDefinition> ColumnMapping = new List<ColumnDefinition>();
+            it.ColumnMapping = ColumnMapping;
             Group group = cm.Groups[0];
 
             foreach (var e in group.Elements)

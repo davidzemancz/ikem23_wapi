@@ -6,7 +6,7 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public int SheetNumber { get; set; }
-        public List<ColumnDefinition> ColumnMapping { get; } = new List<ColumnDefinition>();
+        public List<ColumnDefinition> ColumnMapping { get; set; } = new List<ColumnDefinition>();
     }
 
     public class ColumnDefinition
