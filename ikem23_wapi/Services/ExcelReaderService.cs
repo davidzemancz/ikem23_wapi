@@ -22,7 +22,7 @@ namespace ikem23_wapi.Services
         public List<MolecularSequence> ReadMolecularSequence(Stream stream, ImportTemplate template, PatientRecordCreateDto patientRecorDto)
         {
             ObjReference patient = new ObjReference();
-            patient.Reference = "Patient" + patientRecorDto.PacientId.ToString();
+            patient.Reference = "Patient/" + patientRecorDto.PacientId.ToString();
             var importObj = new List<MolecularSequence>();
             var workbook = new XLWorkbook(stream);
             var ws1 = workbook.Worksheet(2);
