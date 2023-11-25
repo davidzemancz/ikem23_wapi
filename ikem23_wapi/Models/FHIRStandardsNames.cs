@@ -46,6 +46,11 @@
         public const string Interpretation = "interpretation";
         public const string Performer = "performer";
         public const string ReferenceRange = "referenceRange";
+        public const string observationgeneticsGeneGene = "observation-geneticsGene.Gene";
+        public const string observationgeneticsVariantName = "observation-geneticsVariant.Name";
+        public const string observationgeneticsAminoAcidChangeName = "observation-geneticsAminoAcidChange.Name";
+        public const string observationgeneticsDNARegionNameDNARegionName = "observation-geneticsDNARegionName.DNARegionName";
+        public const string observationgeneticsAminoAcidChangeType = "observation-geneticsAminoAcidChange.Type";
 
         // Add more attributes and sub-attributes as needed
     }

@@ -15,6 +15,18 @@ namespace ikem23_wapi.Models
         public List<string> Given { get; set; }
     }
 
+    public class Coverage
+    {
+        Identifier identifier { get; set; } = new Identifier();
+    }
+
+    public class Condition
+    {
+        public int Id { get; set; }
+
+        public Code code { get; set; } = new Code();
+    }
+
     public class DiagnosticReport
     {
         public string ResourceType { get; set; } = nameof(DiagnosticReport);
@@ -41,6 +53,8 @@ namespace ikem23_wapi.Models
         //public List<Component> Component { get; set; } = new List<Component> { };
         public List<ObjReference> DerivedFrom { get; set; } = new();
 
+        public ObjReference Specimen { get; set; }
+
         public List<Dictionary<string, string>> Extension { get; set; } = new List<Dictionary<string, string>>();
     }
 
@@ -49,6 +63,49 @@ namespace ikem23_wapi.Models
         public string Text { get; set; } = "TEST";
     }
 
+    public class Specimen
+    {
+        public Identifier identifier { get; set; } = new Identifier();
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public Code Type { get; set; } = new Code { Text = "unknown" };
+
+        public Collection Collection { get; set; }
+
+        public Processing processing { get; set; }
+    }
+
+    public class Identifier
+    {
+        public string NazevBloku { get; set; }
+        public string Value { get; set; }
+        public string Diagnosa { get; set; }
+        public string OnkologickyKod { get; set; }
+    }
+
+    public class Collection
+    {
+        public Collected collected { get; set; }
+    }
+
+    public class Collected
+    {
+        public string CollectedDateTime { get; set; }
+    }
+
+    public class Processing
+    {
+        public Time Time { get; set; }
+    }
+
+
+    public class Time
+    {
+        public string TimeDateTime { get; set; }
+    }
 
     public class Component
     {

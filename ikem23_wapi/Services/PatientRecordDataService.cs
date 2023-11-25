@@ -23,6 +23,14 @@ namespace ikem23_wapi.Services
             return bundle.Entry.Select(e => e.Resource).ToList();
         }
 
+
+        public async Task Post(Specimen specimen)
+        {
+            var response = await _httpClient.PostAsJsonAsync(Globals.FHIRServerUri + "/Specimen", specimen);
+            string err = await response.Content.ReadAsStringAsync();
+            response.EnsureSuccessStatusCode();
+        }
+
         public async Task Post(PatientRecordCreateDto patientRecorDto)
         {
             TransactionBundleDto bundle = new();
@@ -39,12 +47,32 @@ namespace ikem23_wapi.Services
             {
                 var sequence = _excelReaderService.ReadMolecularSequence(file.File, file.Template, patientRecorDto);
 
+                Specimen specimen = new Specimen();
+                specimen.identifier.Value = patientRecorDto.IdBiopsie.ToString();
+                specimen.identifier.Diagnosa = patientRecorDto.Diagnoza.ToString();
+                specimen.identifier.OnkologickyKod = patientRecorDto.OnkologickyKod.ToString();
+
+                string sGuid = Guid.NewGuid().ToString();
+                string sFullUrl = "urn:uuid:" + sGuid;
+
+                bundle.Entry.Add(new TransactionEntryDto()
+                {
+                    Resource = specimen,
+                    FullUrl = sFullUrl,
+                    Request = new BundleRequestDto()
+                    {
+                        Method = "POST",
+                        Url = "Specimen",
+                    }
+                });
+
                 foreach (var (ms,obs) in sequence)
                 {
                     string msGuid = Guid.NewGuid().ToString();
                     string msFullUrl = "urn:uuid:" + msGuid;
                     molecularSequences.Add(ms);
-                    
+
+
                     bundle.Entry.Add(new TransactionEntryDto()
                     {
                         Resource = ms,
@@ -53,12 +81,12 @@ namespace ikem23_wapi.Services
                         {
                             Method = "POST",
                             Url = "MolecularSequence",
-                            //IfNoneExist = "identifier=urn:oid:2.16.528.1.1007.3.1|93827369"
                         }
                     });
 
                     string obsGuid = Guid.NewGuid().ToString();
                     obs.DerivedFrom.Add(new ObjReference() { Reference = msFullUrl });
+                    obs.Specimen = new ObjReference() { Reference = sFullUrl };
                     observations.Add(obs);
 
                     bundle.Entry.Add(new TransactionEntryDto()
@@ -72,6 +100,9 @@ namespace ikem23_wapi.Services
                             //IfNoneExist = "identifier=urn:oid:2.16.528.1.1007.3.1|93827369"
                         }
                     });
+
+                    
+
                 }
             }
 

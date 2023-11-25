@@ -19,7 +19,20 @@ namespace ikem23_wapi.Services
             return ReadMolecularSequence(stream, template, patientRecorDto);
         }
 
-       
+        public List<Specimen> ReadSpecimenSequence(string fileName, ImportTemplate template, PatientRecordCreateDto patientRecorDto)
+        {
+
+            using Stream stream = new StreamReader(fileName).BaseStream;
+            return ReadSpecimenSequence(stream, template, patientRecorDto);
+        }
+
+        /// <summary>
+        /// Function reads data from excel file stream provided custom import template for each file. These are selected or created within the UI.
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <param name="template"></param>
+        /// <param name="patientRecorDto"></param>
+        /// <returns></returns>
         public List<(MolecularSequence, Observation)> ReadMolecularSequence(Stream stream, ImportTemplate template, PatientRecordCreateDto patientRecorDto)
         {
             ObjReference patient = new ObjReference();
@@ -54,6 +67,8 @@ namespace ikem23_wapi.Services
                 molecularSequence.Variant = variants;
                 molecularSequence.Quality = qualities;
 
+
+                //Data are loaded based on user selected import template of excel columns
                 foreach (var col in ws1.ColumnsUsed())
                 {
                     int colNum = col.ColumnNumber();
@@ -103,41 +118,41 @@ namespace ikem23_wapi.Services
                         //molecularSequence.ReferenceSeq = new ReferenceSeq { Orientation = cellVal.ToString()  };
                         //TODO zjistit converzi
                     }
-                    if (colDef.Id == "TMBv4_GRCh38")
+                    if (colDef.Id == ObservationName.observationgeneticsGeneGene)
                     {
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", "observation-geneticsGene.Gene");
+                        dict.Add("url", ObservationName.observationgeneticsGeneGene);
                         dict.Add("valueString", cellVal.ToString());
                         observation.Extension.Add(dict);
                     }
-                    if (colDef.Id == "Coding region change")
+                    if (colDef.Id == ObservationName.observationgeneticsVariantName)
                     {
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", "observation-geneticsVariant.Name");
+                        dict.Add("url", ObservationName.observationgeneticsVariantName);
                         dict.Add("valueString", cellVal.ToString());
                         observation.Extension.Add(dict);
                     }
 
-                    if (colDef.Id == "Amino acid change")
+                    if (colDef.Id == ObservationName.observationgeneticsAminoAcidChangeName)
                     {
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", "observation-geneticsAminoAcidChange.Name");
+                        dict.Add("url", ObservationName.observationgeneticsAminoAcidChangeName);
                         dict.Add("valueString", cellVal.ToString());
                         observation.Extension.Add(dict);
 
                     }
-                    if (colDef.Id == "Exon Number")
+                    if (colDef.Id == ObservationName.observationgeneticsDNARegionNameDNARegionName)
                     {
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", "observation-geneticsDNARegionName.DNARegionName");
+                        dict.Add("url", ObservationName.observationgeneticsDNARegionNameDNARegionName);
                         dict.Add("valueString", cellVal.ToString());
                         observation.Extension.Add(dict);
 
                     }
-                    if (colDef.Id == "Origin Tracks")
+                    if (colDef.Id == ObservationName.observationgeneticsAminoAcidChangeType)
                     {
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", "observation-geneticsAminoAcidChange.Type");
+                        dict.Add("url", ObservationName.observationgeneticsAminoAcidChangeType);
                         dict.Add("valueString", cellVal.ToString());
                         observation.Extension.Add(dict);
 
@@ -145,6 +160,56 @@ namespace ikem23_wapi.Services
                 }
             }
 
+            return retObject;
+        }
+
+        public List<Specimen> ReadSpecimenSequence(Stream stream, ImportTemplate template, PatientRecordCreateDto patientRecorDto)
+        {
+            ObjReference patient = new ObjReference();
+            patient.Reference = "Patient/" + patientRecorDto.PacientId.ToString();
+            var retObject = new List<Specimen>();
+
+            var workbook = new XLWorkbook(stream);
+            var ws1 = workbook.Worksheet(1);
+
+
+            if (ws1.RowsUsed().Count() <= 0) return null;
+            var rows = ws1.RangeUsed().RowsUsed().Skip(1); // Skip header row
+            foreach (var row in rows)
+            {
+                var rowNumber = row.RowNumber();
+                var specimen = new Specimen();
+                retObject.Add(specimen);
+
+
+                //Data are loaded based on user selected import template of excel columns
+                foreach (var col in ws1.ColumnsUsed())
+                {
+                    int colNum = col.ColumnNumber();
+                    var colDef = template.ColumnMapping.Find(x => x.ExcelColumnLetter == col.ColumnLetter());
+                    if (colDef == null) continue;
+
+                    var cellVal = row.Cell(colNum).Value;
+
+                    if (colDef.Id == "Název bloku")
+                    {
+                        specimen.identifier.NazevBloku = cellVal.ToString();
+                    }
+
+                    if (colDef.Id == "ID biopsie")
+                    {
+                        specimen.identifier.Value = cellVal.ToString();
+                    }
+                    if (colDef.Id == "příjem LMP")
+                    {
+                        specimen.Collection.collected.CollectedDateTime = cellVal.ToString();
+                    }
+                    if (colDef.Id == "uzavření LMP")
+                    {
+                        specimen.processing.Time.TimeDateTime = cellVal.ToString();
+                    }
+                }
+            }
             return retObject;
         }
 
