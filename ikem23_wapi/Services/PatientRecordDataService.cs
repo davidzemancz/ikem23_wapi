@@ -5,6 +5,13 @@ namespace ikem23_wapi.Services
 {
     public class PatientRecordDataService
     {
+        private readonly ExcelReaderService _excelReaderService;
+
+
+        public PatientRecordDataService(ExcelReaderService excelReaderService)
+        {
+            _excelReaderService = excelReaderService;
+        }
 
         public async Task<List<PatientRecord>> Get()
         {
