@@ -62,43 +62,43 @@ namespace ikem23_wapi.Services
 
                     var cellVal = row.Cell(colNum).Value;
 
-                    if (colDef.Id == "ObservedSeq")
+                    if (colDef.Id == MoleculeSequenceName.ObservedSeq)
                     {
                         molecularSequence.ObservedSeq = cellVal.ToString();
                     }
-                    if (colDef.Id == "ReadCoverage")
+                    if (colDef.Id == MoleculeSequenceName.ReadCoverage)
                     {
                         molecularSequence.ReadCoverage = int.Parse(cellVal.ToString());
                     }
-                    if (colDef.Id == "Start")
+                    if (colDef.Id == MoleculeSequenceName.Start)
                     {
                         variant.Start = int.Parse(cellVal.ToString());
                     }
-                    if (colDef.Id == "End")
+                    if (colDef.Id == MoleculeSequenceName.End)
                     {
                         variant.End = int.Parse(cellVal.ToString());
                     }
-                    if (colDef.Id == "ObservedAllele")
+                    if (colDef.Id == MoleculeSequenceName.ObservedAllele)
                     {
                         variant.ObservedAllele = cellVal.ToString();
                     }
-                    if (colDef.Id == "ReferenceAllele")
+                    if (colDef.Id == MoleculeSequenceName.ReferenceAllele)
                     {
                         variant.ReferenceAllele = cellVal.ToString();
                     }
-                    if (colDef.Id == "Type")
+                    if (colDef.Id == MoleculeSequenceName.Type)
                     {
                         //qualitiy.Type = cellVal.ToString();
                     }
-                    if (colDef.Id == "Score")
+                    if (colDef.Id == MoleculeSequenceName.Score)
                     {
                         qualitiy.Score = new Score { Value = int.Parse(cellVal.ToString()) };
                     }
-                    if (colDef.Id == "chromosome")
+                    if (colDef.Id == MoleculeSequenceName.chromosome)
                     {
                         molecularSequence.ReferenceSeq = new ReferenceSeq { Chromosome = new Code { Text = cellVal.ToString() } };
                     }
-                    if (colDef.Id == "orientation")
+                    if (colDef.Id == MoleculeSequenceName.orientation)
                     {
                         //molecularSequence.ReferenceSeq = new ReferenceSeq { Orientation = cellVal.ToString()  };
                         //TODO zjistit converzi
@@ -118,7 +118,7 @@ namespace ikem23_wapi.Services
                         observation.Extension.Add(dict);
                     }
 
-                    if (colDef.Id == "Coding region change")
+                    if (colDef.Id == "Amino acid change")
                     {
                         Dictionary<string, string> dict = new Dictionary<string, string>();
                         dict.Add("url", "");

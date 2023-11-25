@@ -39,6 +39,17 @@ namespace test
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "B", Id = "Region" });
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "D", Id = "ReferenceAllele" });
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "E", Id = "ObservedAllele" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "U", Id = "TMBv4_GRCh38" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "V", Id = "Coding region change" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "W", Id = "Amino acid change" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "Z", Id = "Exon Number" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "AP", Id = "Origin Tracks" });
+
+
+
+
+
+
             return it;
         }
     }
