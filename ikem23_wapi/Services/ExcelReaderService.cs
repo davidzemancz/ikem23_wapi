@@ -62,45 +62,6 @@ namespace ikem23_wapi.Services
             return importObj;
         }
 
-        public List<Patient> ReadPatientRecords(Stream stream, ImportTemplate template)
-        {
-            var importObj = new List<Patient>();
-            var workbook = new XLWorkbook(stream);
-            var ws1 = workbook.Worksheet(2);
-
-
-            if (ws1.RowsUsed().Count() <= 0) return null;
-            var rows = ws1.RangeUsed().RowsUsed().Skip(1); // Skip header row
-            foreach (var row in rows)
-            {
-                var rowNumber = row.RowNumber();
-                var patientRecord = new Patient { };
-                foreach (var col in ws1.ColumnsUsed())
-                {
-                    int colNum = col.ColumnNumber();
-                    var colDef = template.ColumnMapping.Find(x => x.ExcelColumn == col.ColumnLetter());
-                    if (colDef == null) continue;
-
-                    var cellVal = row.Cell(colNum).Value;
-
-                    PropertyInfo propInfo = patientRecord.GetType().GetProperty(colDef.PropertyName);
-                    if (propInfo == null) throw new Exception("Property not found");
-                    if (propInfo.PropertyType == typeof(string))
-                    {
-                        propInfo.SetValue(patientRecord, cellVal.ToString());
-                    }
-                    else if (propInfo.PropertyType == typeof(double))
-                    {
-                        propInfo.SetValue(patientRecord, cellVal.GetNumber());
-                    }
-
-                }
-                importObj.Add(patientRecord);
-            }
-
-            return importObj;
-        }
-
         public List<MolecularSequence> ReadMolecularSequence(Stream stream, ImportTemplate template)
         {
             var importObj = new List<MolecularSequence>();

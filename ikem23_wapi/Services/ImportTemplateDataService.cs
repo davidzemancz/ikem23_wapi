@@ -24,7 +24,10 @@ namespace ikem23_wapi.Services
 
             List<ImportTemplate> templates = new();
 
-            // TODO petr mapovani
+            foreach (var cm in bundle.Entry)
+            {
+                templates.Add(MapConceptMapToImportTemplate(cm.Resource));
+            }
 
             return templates;
 
@@ -42,6 +45,25 @@ namespace ikem23_wapi.Services
 
         public async Task Delete(int id)
         {
+        }
+
+
+        public ImportTemplate MapConceptMapToImportTemplate(ConceptMap cm)
+        {
+            ImportTemplate it = new ImportTemplate();
+            it.Name = cm.Name;
+            it.Id = cm.Id;
+
+            List<ColumnDefinition> ColumnMapping = new List<ColumnDefinition>();
+            Group group = cm.Groups[0];
+
+            foreach (var e in group.Elements)
+            {
+                Target t = e.Targets[0];
+                ColumnDefinition cd = new ColumnDefinition { PropertyName = e.Code.ToString(), ExcelColumn = t.Code.ToString() };
+            }
+
+            return it;
         }
     }
 }
