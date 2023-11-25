@@ -17,9 +17,10 @@ namespace ikem23_wapi.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<PatientRecord>> Get()
+        public async Task<List<MolecularSequence>> Get()
         {
-            return null;
+            BundleDto<MolecularSequence> bundle = await _httpClient.GetFromJsonAsync<BundleDto<MolecularSequence>>(Globals.FHIRServerUri + "/MolecularSequence");
+            return bundle.Entry.Select(e => e.Resource).ToList();
         }
 
         public async Task Post(PatientRecordCreateDto patientRecorDto)
