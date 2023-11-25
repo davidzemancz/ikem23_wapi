@@ -63,7 +63,7 @@ namespace ikem23_wapi.Services
             {
                 Element e = new Element();
                 elements.Add(e);
-                e.Code = cd.PropertyName;
+                e.Code = cd.Id;
                 List<Target> targets = new List<Target>();
                 Target t = new Target();
                 targets.Add(t);
@@ -88,6 +88,7 @@ namespace ikem23_wapi.Services
             {
                 Target t = e.Targets[0];
                 ColumnDefinition cd = new ColumnDefinition { Id = e.Code.ToString(), ExcelColumnLetter = t.Code.ToString() };
+                ColumnMapping.Add(cd);
             }
 
             return it;
