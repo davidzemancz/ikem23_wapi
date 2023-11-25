@@ -34,7 +34,6 @@ namespace ikem23_wapi.Services
         public async Task<ImportTemplate> Get(int id)
         {
             ConceptMap cm  = await _httpClient.GetFromJsonAsync<ConceptMap>(Globals.FHIRServerUri + $"/ConceptMap/{id}");
-
             return MapConceptMapToImportTemplate(cm);
         }
 
@@ -49,6 +48,7 @@ namespace ikem23_wapi.Services
 
         public async Task Delete(int id)
         {
+            await _httpClient.DeleteAsync(Globals.FHIRServerUri + $"/ConceptMap/{id}");
         }
 
         public ConceptMap MapImportTemplateToConceptMap(ImportTemplate it)
