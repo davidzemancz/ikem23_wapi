@@ -1,32 +1,47 @@
-﻿using ikem23_wapi.Models;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Wordprocessing;
+using ikem23_wapi.DTOs;
+using ikem23_wapi.Models;
+using System.Net.Http;
 
 namespace ikem23_wapi.Services
 {
     public class ImportTemplateDataService
     {
-        public static List<ImportTemplate> Data { get; set; }
+        private readonly HttpClient _httpClient;
+
+        public ImportTemplateDataService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+
+        }
 
         public async Task<List<ImportTemplate>> Get()
         {
-            return Data;
+            string query = "";
+
+            BundleDto<ConceptMap> bundle = await _httpClient.GetFromJsonAsync<BundleDto<ConceptMap>>(Globals.FHIRServerUri + "/ConceptMap" + query);
+
+            List<ImportTemplate> templates = new();
+
+            // TODO petr mapovani
+
+            return templates;
+
         } 
 
         public async Task Post(ImportTemplate importTemplate)
         {
-            int index = Data.FindIndex(0, c => c.Id == importTemplate.Id);
-            if (index == -1)
-            {
-                Data.Add(importTemplate);
-            }
-            else
-            {
-                Data[index] = importTemplate;
-            }
+            ConceptMap cm = new();
+
+            // TODO petr mapovani
+
+            var response = await _httpClient.PostAsJsonAsync(Globals.FHIRServerUri + "/ConceptMap", cm);
+            response.EnsureSuccessStatusCode();
         }
 
         public async Task Delete(int id)
         {
-            Data.RemoveAll(c => c.Id == id);
         }
     }
 }
