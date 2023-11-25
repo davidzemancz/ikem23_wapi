@@ -34,13 +34,18 @@ namespace ikem23_wapi.Controllers
             await _dataService.Delete(id);
         }
 
-        [HttpGet]
-        public async Task<List<ColumnDefinition>> GetColumns()
+        [HttpGet("columns")]
+        public async Task<List<ColumnDefinition>> GetColumnsDefinition()
         {
-            return new List<ColumnDefinition>()
+            var list = new List<ColumnDefinition>();
+
+            var pr = new PatientRecord();
+            foreach(var prop in pr.GetType().GetProperties())
             {
-                
-            };
+                list.Add(new ColumnDefinition(prop.Name, "", ""));
+            }
+
+            return list;
         }
     }
 }
