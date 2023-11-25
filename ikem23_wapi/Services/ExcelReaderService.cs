@@ -44,7 +44,7 @@ namespace ikem23_wapi.Services
 
                     var cellVal = row.Cell(colNum).Value;
 
-                    PropertyInfo propInfo = patientRecord.GetType().GetProperty(colDef.PropertyName);
+                    PropertyInfo propInfo = patientRecord.GetType().GetProperty(colDef.Id);
                     if (propInfo == null) throw new Exception("Property not found");
                     if (propInfo.PropertyType == typeof(string))
                     {
@@ -83,7 +83,7 @@ namespace ikem23_wapi.Services
 
                     var cellVal = row.Cell(colNum).Value;
 
-                    PropertyInfo propInfo = molecularSequence.GetType().GetProperty(colDef.PropertyName);
+                    PropertyInfo propInfo = molecularSequence.GetType().GetProperty(colDef.Id);
                     if (propInfo == null) throw new Exception("Property not found");
                     if (propInfo.PropertyType == typeof(string))
                     {

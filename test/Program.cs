@@ -28,12 +28,12 @@ namespace test
         public static ImportTemplate loadTestTemplate()
         {
             ImportTemplate it = new ImportTemplate();
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "A", PropertyName = "Chromosome" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "B", PropertyName = "Region" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "C", PropertyName = "Type" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "F", PropertyName = "Length" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "G", PropertyName = "Count" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "H", PropertyName = "Coverage" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "A", Id = "Chromosome" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "B", Id = "Region" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "C", Id = "Type" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "F", Id = "Length" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "G", Id = "Count" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "H", Id = "Coverage" });
             return it;
         }
     }

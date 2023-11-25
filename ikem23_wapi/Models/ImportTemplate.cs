@@ -12,14 +12,14 @@
     public class ColumnDefinition
     {
         public ColumnDefinition() { }
-        public ColumnDefinition(string propertyName, string excelColumn, string excelColumnHeader)
+        public ColumnDefinition(string id, string excelColumn, string excelColumnHeader)
         {
-            PropertyName = propertyName;
+            Id = id;
             ExcelColumnLetter = excelColumn;
             ExcelColumnHeader = excelColumnHeader;
         }
 
-        public string PropertyName { get; set; }
+        public string Id { get; set; }
         public string ExcelColumnLetter { get; set; }
         public string ExcelColumnHeader{ get; set; }
     }
