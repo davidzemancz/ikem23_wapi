@@ -30,6 +30,8 @@ namespace ikem23_wapi.Services
                 molecularSequences.Concat(sequence);
             }
 
+            //TODO: zde ulozit molecularSequences
+
             foreach (var molecularSequence in molecularSequences)
             {
                 Observation o = new Observation();
