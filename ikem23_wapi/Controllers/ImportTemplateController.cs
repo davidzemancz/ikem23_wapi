@@ -11,7 +11,7 @@ namespace ikem23_wapi.Controllers
     public class ImportTemplateController : ControllerBase
     {
         private readonly ImportTemplateDataService _dataService;
-        public ImportTemplateController(ImportTemplateDataService dataService) 
+        public ImportTemplateController(ImportTemplateDataService dataService)
         {
             _dataService = dataService;
         }
@@ -34,6 +34,13 @@ namespace ikem23_wapi.Controllers
             await _dataService.Delete(id);
         }
 
-
+        [HttpGet]
+        public async Task<List<ColumnDefinition>> GetColumns()
+        {
+            return new List<ColumnDefinition>()
+            {
+                
+            };
+        }
     }
 }

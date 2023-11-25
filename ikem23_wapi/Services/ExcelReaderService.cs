@@ -32,7 +32,7 @@ namespace ikem23_wapi.Services
                 foreach (var col in ws1.ColumnsUsed())
                 {
                     int colNum = col.ColumnNumber();
-                    var colDef = template.ColumnMapping.Find(x => x.ExcelColumn == col.ColumnLetter());
+                    var colDef = template.ColumnMapping.Find(x => x.ExcelColumnLetter == col.ColumnLetter());
                     if (colDef == null) continue;
 
                     var cellVal = row.Cell(colNum).Value;

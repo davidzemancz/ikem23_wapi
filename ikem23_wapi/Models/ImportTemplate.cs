@@ -11,8 +11,16 @@
 
     public class ColumnDefinition
     {
-        public string PropertyName { get; set; }
+        public ColumnDefinition() { }
+        public ColumnDefinition(string propertyName, string excelColumn, string excelColumnHeader)
+        {
+            PropertyName = propertyName;
+            ExcelColumnLetter = excelColumn;
+            ExcelColumnHeader = excelColumnHeader;
+        }
 
-        public string ExcelColumn { get; set; }
+        public string PropertyName { get; set; }
+        public string ExcelColumnLetter { get; set; }
+        public string ExcelColumnHeader{ get; set; }
     }
 }
