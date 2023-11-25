@@ -20,13 +20,13 @@ namespace ikem23_wapi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<PatientRecord>> Get()
+        public async Task<IEnumerable<Patient>> Get()
         {
             return await _dataService.Get();
         }
 
         [HttpPost]
-        public async Task Post([FromBody] PatientRecord value)
+        public async Task Post([FromBody] Patient value)
         {
             await _dataService.Post(value);
         }

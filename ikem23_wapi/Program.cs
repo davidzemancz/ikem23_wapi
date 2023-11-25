@@ -18,6 +18,7 @@ namespace ikem23_wapi
 
             builder.Services.AddSingleton<ImportTemplateDataService>();
             builder.Services.AddSingleton<PatientRecordDataService>();
+            builder.Services.AddSingleton<PatientDataService>();
             builder.Services.AddScoped<ExcelReaderService>();
             builder.Services.AddScoped<HttpClient>();
 

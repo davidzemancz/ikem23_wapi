@@ -1,12 +1,8 @@
 ﻿using System.Reflection.Metadata.Ecma335;
-using Newtonsoft.Json;
-
-
-
 
 namespace ikem23_wapi.Models
 {
-    public class PatientRecord
+    public class Patient
     {
         public int Id { get; set; }
         public int KodPojistovna { get; set; }
@@ -22,7 +18,7 @@ namespace ikem23_wapi.Models
         public DateTime PrijemLMP { get; set; }  // effectiveDateTime
         public DateTime UzavreniLMP { get; set; }
         public double PomerNadorovychBunek { get; set; }
-        public Observation observation { get; set; }
+        public Observation Observation { get; set; }
     }
 
     public class Observation
@@ -52,7 +48,7 @@ namespace ikem23_wapi.Models
         public string Id { get; set; }
         public string Type { get; set; }
         public int CoordinateSystem { get; set; }
-        public PatientRecord Patient { get; set; }
+        public Patient Patient { get; set; }
         public List<Variant> Variant { get; set; }
         public string ObservedSeq { get; set; }
         public List<Quality> Quality { get; set; }
