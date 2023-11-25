@@ -58,11 +58,10 @@ namespace ikem23_wapi.Models
     public class MolecularSequence
     {
         public string ResourceType { get; set; } = nameof(MolecularSequence);
-        public string Type { get; set; }
         public int CoordinateSystem { get; set; }
         public ObjReference Patient { get; set; }
-        public List<Variant> Variant { get; set; }
-        public string ObservedSeq { get; set; }
+        public List<Variant> Variant { get; set; } = new List<Variant>();
+        public string ObservedSeq { get; set; } = "A";
         public List<Quality> Quality { get; set; }
         public int ReadCoverage { get; set; }
     }
@@ -71,14 +70,14 @@ namespace ikem23_wapi.Models
     {
         public int Start { get; set; }
         public int End { get; set; }
-        public string ObservedAllele { get; set; }
-        public string ReferenceAllele { get; set; }
+        public string ObservedAllele { get; set; } = "A";
+        public string ReferenceAllele { get; set; } = "A";
     }
 
     public class Quality
     {
-        public string Type { get; set; }
-        public Score Score { get; set; }
+        public string Type { get; set; } = "snp";
+        public Score Score { get; set; } = new Score();
     }
 
     public class Score

@@ -35,7 +35,6 @@ namespace test
             ImportTemplate it = new ImportTemplate();
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "A", Id = "Chromosome" });
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "B", Id = "Region" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "C", Id = "Type" });
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "F", Id = "Length" });
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "G", Id = "Count" });
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "H", Id = "Coverage" });
