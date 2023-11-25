@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
-using DocumentFormat.OpenXml.Wordprocessing;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
 using ikem23_wapi.DTOs;
 using ikem23_wapi.Models;
 using System.Net.Http;
@@ -60,7 +59,7 @@ namespace ikem23_wapi.Services
             foreach (var e in group.Elements)
             {
                 Target t = e.Targets[0];
-                ColumnDefinition cd = new ColumnDefinition { PropertyName = e.Code.ToString(), ExcelColumn = t.Code.ToString() };
+                ColumnDefinition cd = new ColumnDefinition { PropertyName = e.Code.ToString(), ExcelColumnLetter = t.Code.ToString() };
             }
 
             return it;
