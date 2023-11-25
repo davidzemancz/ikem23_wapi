@@ -64,5 +64,33 @@ namespace ikem23_wapi.Services
 
             return it;
         }
+
+        public ConceptMap MapImportTemplateToConceptMap(ImportTemplate it)
+        {
+            ConceptMap cm = new ConceptMap();
+            cm.Name = it.Name;
+            cm.Id = it.Id;
+            
+            List<Group> groups = new List<Group>();
+            cm.Groups = groups;
+            List<Element> elements = new List<Element>();
+            Group g = new Group();
+            groups.Add(g);
+            g.Elements = elements;
+
+            foreach (var cd in it.ColumnMapping)
+            {
+                Element e = new Element();
+                elements.Add(e);
+                e.Code = cd.PropertyName;
+                List<Target> targets = new List<Target>();
+                Target t = new Target();
+                targets.Add(t);
+                e.Targets = targets;
+                t.Code = cd.ExcelColumnLetter;
+            }
+
+            return cm;
+        }
     }
 }
