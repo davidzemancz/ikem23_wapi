@@ -57,45 +57,35 @@ namespace ikem23_wapi.Services
 
                     var cellVal = row.Cell(colNum).Value;
 
-                    PropertyInfo propInfo = molecularSequence.GetType().GetProperty(colDef.Id);
-                    if (propInfo == null) throw new Exception("Property not found");
-                    if (propInfo.PropertyType == typeof(string))
-                    {
-                        propInfo.SetValue(molecularSequence, cellVal.ToString());
-                    }
-                    else if (propInfo.PropertyType == typeof(double))
-                    {
-                        propInfo.SetValue(molecularSequence, cellVal.GetNumber());
-                    }
-                    if (propInfo.PropertyType.ToString() == "ObservedSeq")
+                    if (colDef.Id == "ObservedSeq")
                     {
                         molecularSequence.ObservedSeq = cellVal.ToString();
                     }
-                    if (propInfo.PropertyType.ToString() == "ReadCoverage")
+                    if (colDef.Id == "ReadCoverage")
                     {
                         molecularSequence.ReadCoverage = int.Parse(cellVal.ToString());
                     }
-                    if (propInfo.PropertyType.ToString() == "Start")
+                    if (colDef.Id == "Start")
                     {
                         variant.Start = int.Parse(cellVal.ToString());
                     }
-                    if (propInfo.PropertyType.ToString() == "End")
+                    if (colDef.Id == "End")
                     {
                         variant.End = int.Parse(cellVal.ToString());
                     }
-                    if (propInfo.PropertyType.ToString() == "ObservedAllele")
+                    if (colDef.Id == "ObservedAllele")
                     {
                         variant.ObservedAllele = cellVal.ToString();
                     }
-                    if (propInfo.PropertyType.ToString() == "ReferenceAllele")
+                    if (colDef.Id == "ReferenceAllele")
                     {
                         variant.ReferenceAllele = cellVal.ToString();
                     }
-                    if (propInfo.PropertyType.ToString() == "Type")
+                    if (colDef.Id == "Type")
                     {
                         qualitiy.Type = cellVal.ToString();
                     }
-                    if (propInfo.PropertyType.ToString() == "Score")
+                    if (colDef.Id == "Score")
                     {
                         qualitiy.Score = new Score { Value = int.Parse(cellVal.ToString()) };
                     } 

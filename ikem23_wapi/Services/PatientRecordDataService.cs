@@ -26,7 +26,7 @@ namespace ikem23_wapi.Services
             
             foreach (var file in patientRecorDto.Files)
             {
-                var sequence = ReadMolecularSequence(file.File, file.Template, patientRecorDto);
+                var sequence = _excelReaderService.ReadMolecularSequence(file.File, file.Template, patientRecorDto);
                 molecularSequences.Concat(sequence);
             }
 
