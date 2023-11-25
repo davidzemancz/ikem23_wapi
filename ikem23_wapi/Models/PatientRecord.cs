@@ -48,16 +48,33 @@ namespace ikem23_wapi.Models
 
     public class MolecularSequence
     {
-        public int Id { get; set; }
+        public string ResourceType { get; set; }
+        public string Id { get; set; }
         public string Type { get; set; }
-        public string patient { get; set; } //tohle ma byt reference
-        public string performer { get; set; }
-        public int coordinateSystem { get; set; }
+        public int CoordinateSystem { get; set; }
+        public PatientRecord Patient { get; set; }
+        public List<Variant> Variant { get; set; }
+        public string ObservedSeq { get; set; }
+        public List<Quality> Quality { get; set; }
+        public int ReadCoverage { get; set; }
+    }
 
-        //      "variant": [{"start": 2, "end": 3, "observedAllele": "C", "referenceAllele": "G"}],
-        //      "observedSeq": "AGT",
-        //      "quality": [{"type": "snp","score": {"value": 30}]
+    public class Variant
+    {
+        public int Start { get; set; }
+        public int End { get; set; }
+        public string ObservedAllele { get; set; }
+        public string ReferenceAllele { get; set; }
+    }
 
-        public int readCoverage { get; set; }
+    public class Quality
+    {
+        public string Type { get; set; }
+        public Score Score { get; set; }
+    }
+
+    public class Score
+    {
+        public int Value { get; set; }
     }
 }
