@@ -1,5 +1,6 @@
 
 using ikem23_wapi.Services;
+using System.Net.Http;
 
 namespace ikem23_wapi
 {
@@ -16,11 +17,16 @@ namespace ikem23_wapi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddSingleton<ImportTemplateDataService>();
-            builder.Services.AddSingleton<PatientRecordDataService>();
-            builder.Services.AddSingleton<PatientDataService>();
+            builder.Services.AddScoped<ImportTemplateDataService>();
+            builder.Services.AddScoped<PatientRecordDataService>();
+            builder.Services.AddScoped<PatientDataService>();
             builder.Services.AddScoped<ExcelReaderService>();
-            builder.Services.AddScoped<HttpClient>();
+            builder.Services.AddScoped<HttpClient>((sp) =>
+            {
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("x-api-key", Globals.FHIRServerApiKey);
+                return httpClient;
+            });
 
             var app = builder.Build();
 

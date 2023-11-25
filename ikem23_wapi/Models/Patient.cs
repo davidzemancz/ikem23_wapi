@@ -5,8 +5,15 @@ namespace ikem23_wapi.Models
     public class Patient
     {
         public int Id { get; set; }
+        public List<PatientName> Name { get; set; }
         public int KodPojistovna { get; set; }
         public int PatientId { get; set; }  // rodny cislo 
+    }
+
+    public class PatientName
+    {
+        public string Family { get; set; }
+        public List<string> Given { get; set; }
     }
 
     public class DiagnosticReport
