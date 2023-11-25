@@ -13,7 +13,7 @@ namespace ikem23_wapi.DTOs
         public int KodPojistovna { get; set; }
         public DateTime PrijemLMP { get; set; }
         public DateTime UzavreniLMP { get; set; }
-        public List<PatientRecordFileDto> Files { get; set; }
+        public List<PatientRecordFileDto> Files { get; set; } = new();
     }
 
     public class PatientRecordFileDto
