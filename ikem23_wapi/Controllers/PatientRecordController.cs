@@ -20,15 +20,9 @@ namespace ikem23_wapi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Patient>> Get()
+        public async Task<IEnumerable<PatientRecord>> Get()
         {
             return await _dataService.Get();
-        }
-
-        [HttpPost]
-        public async Task Post([FromBody] Patient value)
-        {
-            await _dataService.Post(value);
         }
 
         [HttpPost("create")]
@@ -37,6 +31,10 @@ namespace ikem23_wapi.Controllers
             // TODO
             // 1. read excel files
             // Create PatientRecords
+
+            var dto = new PatientRecordCreateDto();
+
+           
         }
 
 
