@@ -1,4 +1,5 @@
-﻿using ikem23_wapi.Models;
+﻿using ikem23_wapi.DTOs;
+using ikem23_wapi.Models;
 
 namespace ikem23_wapi.Services
 {
@@ -10,7 +11,7 @@ namespace ikem23_wapi.Services
             return null;
         }
 
-        public async Task Post(PatientRecord patientRecord)
+        public async Task Post(PatientRecordCreateDto patientRecorDto)
         {
               
         }
