@@ -38,6 +38,19 @@ namespace ikem23_wapi.Services
                 PatientRecord record = new();
 
                 record.Projekt = msId + "-" + observation.Code.Text;
+                record.Chromosome = obsMss.ReferenceSeq.Chromosome.Text;
+                record.Reference = obsMss.Variant[0].ReferenceAllele;
+                record.Allele = obsMss.Variant[0].ObservedAllele;
+                record.Length = (obsMss.Variant[0].End - obsMss.Variant[0].Start).ToString();
+                record.Count = "0";
+                record.Coverage = obsMss.ReadCoverage.ToString();
+                record.ForwardReverseBalance = obsMss.ReferenceSeq.Orientation;
+                record.AverageQuality = obsMss.Quality[0].Score.Value.ToString();
+                record.GeneName = observation.Extension.Find(elem => elem["url"] == "observation-geneticsGene.Gene").Get("valueString");
+                record.CodingRegionChange = observation.Extension.Find(elem => elem["url"] == "observation-geneticsVariant.Namee").Get("valueString");
+                record.AminoAcidChange = observation.Extension.Find(elem => elem["url"] == "observation-geneticsAminoAcidChange.Name").Get("valueString");
+                record.ExonNumber = observation.Extension.Find(elem => elem["url"] == "observation-geneticsDNARegionName.DNARegionName").Get("valueString");
+                record.TypeOfMutation = observation.Extension.Find(elem => elem["url"] == "observation-geneticsAminoAcidChange.Type").Get("valueString");
 
                 records.Add(record);
             }
