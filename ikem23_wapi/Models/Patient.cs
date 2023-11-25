@@ -1,4 +1,5 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using DocumentFormat.OpenXml.Drawing;
+using System.Reflection.Metadata.Ecma335;
 
 namespace ikem23_wapi.Models
 {
@@ -6,8 +7,6 @@ namespace ikem23_wapi.Models
     {
         public int Id { get; set; }
         public List<PatientName> Name { get; set; }
-        public int KodPojistovna { get; set; }
-        public int PatientId { get; set; }  // rodny cislo 
     }
 
     public class PatientName
@@ -18,23 +17,30 @@ namespace ikem23_wapi.Models
 
     public class DiagnosticReport
     {
-        public int PatientId { get; set; }
-        public string IdBiopsie { get; set; }
-        public string Diagnoza { get; set; }
-        public string OnkologickyKod { get; set; }
-        public DateTime PrijemLMP { get; set; }  // effectiveDateTime
-        public DateTime UzavreniLMP { get; set; }
-        public double PomerNadorovychBunek { get; set; }
-        public Observation Observation { get; set; }
+        public string ResourceType { get; set; } = nameof(DiagnosticReport);
+        public int Id { get; set; }
+        public List<ObjReference> Observation { get; set; }
+        public ObjReference Subject { get; set; }
+        
+        /// <summary>
+        /// IdBiopise
+        /// </summary>
+        public Code Code { get; set; }
+        public DateTime EffectiveDateTime { get; set; }  
+    }
+
+    public class ObjReference
+    {
+        public string Reference { get; set; }
     }
 
     public class Observation
     {
-        public string ResourceType { get; set; }
+        public string ResourceType { get; set; } = nameof(Observation);
         public string Status { get; set; }
         public Code Code { get; set; }
-        public string ValueString { get; set; }
         public List<Component> Component { get; set; }
+        public ObjReference Value { get; set; }
     }
 
     public class Code
