@@ -106,14 +106,14 @@ namespace ikem23_wapi.Services
                     if (colDef.Id == "TMBv4_GRCh38")
                     {
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", "");
+                        dict.Add("url", "observation-geneticsGene.Gene");
                         dict.Add("valueString", cellVal.ToString());
                         observation.Extension.Add(dict);
                     }
                     if (colDef.Id == "Coding region change")
                     {
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", "");
+                        dict.Add("url", "observation-geneticsVariant.Name");
                         dict.Add("valueString", cellVal.ToString());
                         observation.Extension.Add(dict);
                     }
@@ -121,7 +121,7 @@ namespace ikem23_wapi.Services
                     if (colDef.Id == "Amino acid change")
                     {
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", "");
+                        dict.Add("url", "observation-geneticsAminoAcidChange.Name");
                         dict.Add("valueString", cellVal.ToString());
                         observation.Extension.Add(dict);
 
@@ -129,7 +129,7 @@ namespace ikem23_wapi.Services
                     if (colDef.Id == "Exon Number")
                     {
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", "");
+                        dict.Add("url", "observation-geneticsDNARegionName.DNARegionName");
                         dict.Add("valueString", cellVal.ToString());
                         observation.Extension.Add(dict);
 
@@ -137,7 +137,7 @@ namespace ikem23_wapi.Services
                     if (colDef.Id == "Origin Tracks")
                     {
                         Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", "");
+                        dict.Add("url", "observation-geneticsAminoAcidChange.Type");
                         dict.Add("valueString", cellVal.ToString());
                         observation.Extension.Add(dict);
 

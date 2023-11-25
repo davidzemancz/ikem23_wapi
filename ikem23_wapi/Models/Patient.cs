@@ -36,9 +36,9 @@ namespace ikem23_wapi.Models
     public class Observation
     {
         public string ResourceType { get; set; } = nameof(Observation);
-        public string Status { get; set; }
-        public Code Code { get; set; }
-        public List<Component> Component { get; set; }
+        public string Status { get; set; } = "unknown";
+        public Code Code { get; set; } = new Code();
+        //public List<Component> Component { get; set; } = new List<Component> { };
         public List<ObjReference> DerivedFrom { get; set; } = new();
 
         public List<Dictionary<string, string>> Extension { get; set; } = new List<Dictionary<string, string>>();
@@ -46,7 +46,7 @@ namespace ikem23_wapi.Models
 
     public class Code
     {
-        public string Text { get; set; }
+        public string Text { get; set; } = "TEST";
     }
 
 
