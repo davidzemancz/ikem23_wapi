@@ -41,19 +41,34 @@ namespace ikem23_wapi.Services
 
                 foreach (var (ms,obs) in sequence)
                 {
+                    string msGuid = Guid.NewGuid().ToString();
                     molecularSequences.Add(ms);
-                    observations.Add(obs);
+                    
                     bundle.Entry.Add(new TransactionEntryDto()
                     {
                         Resource = ms,
-                        FillUrl = "urn:uuid:928c0716-1a7e-427e-95f5-cb56300e1737",
+                        FillUrl = "urn:guid:" + msGuid,
                         Request = new BundleRequestDto()
                         {
                             Method = "POST",
                             Url = "MolecularSequence",
-                            IfNoneExist = "identifier=urn:oid:2.16.528.1.1007.3.1|93827369"
+                            //IfNoneExist = "identifier=urn:oid:2.16.528.1.1007.3.1|93827369"
                         }
-                    });   
+                    });
+
+                    string obsGuid = Guid.NewGuid().ToString();
+                    observations.Add(obs);
+                    bundle.Entry.Add(new TransactionEntryDto()
+                    {
+                        Resource = obs,
+                        FillUrl = "urn:guid:" + obsGuid,
+                        Request = new BundleRequestDto()
+                        {
+                            Method = "POST",
+                            Url = "Observation",
+                            //IfNoneExist = "identifier=urn:oid:2.16.528.1.1007.3.1|93827369"
+                        }
+                    });
                 }
             }
 

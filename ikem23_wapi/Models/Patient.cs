@@ -18,7 +18,6 @@ namespace ikem23_wapi.Models
     public class DiagnosticReport
     {
         public string ResourceType { get; set; } = nameof(DiagnosticReport);
-        public int Id { get; set; }
         public List<ObjReference> Observation { get; set; }
         public ObjReference Subject { get; set; }
         
