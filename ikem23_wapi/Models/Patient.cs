@@ -41,12 +41,15 @@ namespace ikem23_wapi.Models
         public Code Code { get; set; }
         public List<Component> Component { get; set; }
         public ObjReference Value { get; set; } //zde je ulozena molecular sequence
+
+        public List<Dictionary<string, string>> Extension { get; set; } = new List<Dictionary<string, string>>();
     }
 
     public class Code
     {
         public string Text { get; set; }
     }
+
 
     public class Component
     {

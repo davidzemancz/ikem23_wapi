@@ -3,6 +3,7 @@ using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using ikem23_wapi.DTOs;
 using ikem23_wapi.Models;
+using System;
 using System.Reflection;
 
 namespace ikem23_wapi.Services
@@ -11,7 +12,7 @@ namespace ikem23_wapi.Services
     public class ExcelReaderService
     {
        
-        public List<MolecularSequence> ReadMolecularSequence(string fileName, ImportTemplate template, PatientRecordCreateDto patientRecorDto)
+        public List<(MolecularSequence, Observation)> ReadMolecularSequence(string fileName, ImportTemplate template, PatientRecordCreateDto patientRecorDto)
         {
 
             using Stream stream = new StreamReader(fileName).BaseStream;
@@ -19,11 +20,12 @@ namespace ikem23_wapi.Services
         }
 
        
-        public List<MolecularSequence> ReadMolecularSequence(Stream stream, ImportTemplate template, PatientRecordCreateDto patientRecorDto)
+        public List<(MolecularSequence, Observation)> ReadMolecularSequence(Stream stream, ImportTemplate template, PatientRecordCreateDto patientRecorDto)
         {
             ObjReference patient = new ObjReference();
             patient.Reference = "Patient/" + patientRecorDto.PacientId.ToString();
-            var importObj = new List<MolecularSequence>();
+            var retObject = new List<(MolecularSequence, Observation)>();
+            
             var workbook = new XLWorkbook(stream);
             var ws1 = workbook.Worksheet(1);
 
@@ -34,6 +36,9 @@ namespace ikem23_wapi.Services
             {
                 var rowNumber = row.RowNumber();
                 var molecularSequence = new MolecularSequence { };
+                var observation = new Observation();
+                retObject.Add((molecularSequence,observation));
+
 
                 //Variant info
                 List<Variant> variants = new List<Variant>();
@@ -98,11 +103,49 @@ namespace ikem23_wapi.Services
                         //molecularSequence.ReferenceSeq = new ReferenceSeq { Orientation = cellVal.ToString()  };
                         //TODO zjistit converzi
                     }
+                    if (colDef.Id == "TMBv4_GRCh38")
+                    {
+                        Dictionary<string, string> dict = new Dictionary<string, string>();
+                        dict.Add("url", "");
+                        dict.Add("valueString", cellVal.ToString());
+                        observation.Extension.Add(dict);
+                    }
+                    if (colDef.Id == "Coding region change")
+                    {
+                        Dictionary<string, string> dict = new Dictionary<string, string>();
+                        dict.Add("url", "");
+                        dict.Add("valueString", cellVal.ToString());
+                        observation.Extension.Add(dict);
+                    }
+
+                    if (colDef.Id == "Coding region change")
+                    {
+                        Dictionary<string, string> dict = new Dictionary<string, string>();
+                        dict.Add("url", "");
+                        dict.Add("valueString", cellVal.ToString());
+                        observation.Extension.Add(dict);
+
+                    }
+                    if (colDef.Id == "Exon Number")
+                    {
+                        Dictionary<string, string> dict = new Dictionary<string, string>();
+                        dict.Add("url", "");
+                        dict.Add("valueString", cellVal.ToString());
+                        observation.Extension.Add(dict);
+
+                    }
+                    if (colDef.Id == "Origin Tracks")
+                    {
+                        Dictionary<string, string> dict = new Dictionary<string, string>();
+                        dict.Add("url", "");
+                        dict.Add("valueString", cellVal.ToString());
+                        observation.Extension.Add(dict);
+
+                    }
                 }
-                importObj.Add(molecularSequence);
             }
 
-            return importObj;
+            return retObject;
         }
 
         public void renameColumns(ImportTemplate template, Dictionary<int, string> colIdName)
