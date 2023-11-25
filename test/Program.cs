@@ -10,7 +10,7 @@ namespace test
         {
             string filepath = "test.xlsx";
             ImportTemplate it = new ImportTemplate();
-            it.ColumnMapping.Add(new ColumnDefinition {ExcelColumn = "A", PropertyName = "IdBiopsie" });
+            it.ColumnMapping.Add(new ColumnDefinition {ExcelColumnLetter = "A", PropertyName = "IdBiopsie" });
             var a = new ExcelReaderService().ReadMolecularSequences(filepath, it);
             Console.WriteLine("");
         }
@@ -18,12 +18,12 @@ namespace test
         public static ImportTemplate loadTestTemplate()
         {
             ImportTemplate it = new ImportTemplate();
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumn = "A", PropertyName = "Chromosome" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumn = "B", PropertyName = "Region" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumn = "C", PropertyName = "Type" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumn = "F", PropertyName = "Length" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumn = "G", PropertyName = "Count" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumn = "H", PropertyName = "Coverage" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "A", PropertyName = "Chromosome" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "B", PropertyName = "Region" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "C", PropertyName = "Type" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "F", PropertyName = "Length" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "G", PropertyName = "Count" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "H", PropertyName = "Coverage" });
             return it;
         }
     }
