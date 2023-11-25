@@ -29,7 +29,14 @@ namespace ikem23_wapi.Services
             }
 
             return templates;
-        } 
+        }
+
+        public async Task<ImportTemplate> Get(int id)
+        {
+            ConceptMap cm  = await _httpClient.GetFromJsonAsync<ConceptMap>(Globals.FHIRServerUri + $"/ConceptMap/{id}");
+
+            return MapConceptMapToImportTemplate(cm);
+        }
 
         public async Task Post(ImportTemplate importTemplate)
         {
