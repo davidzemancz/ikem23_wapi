@@ -1,4 +1,5 @@
-﻿using ikem23_wapi.DTOs;
+﻿using DocumentFormat.OpenXml.Drawing;
+using ikem23_wapi.DTOs;
 using ikem23_wapi.Models;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -17,18 +18,38 @@ namespace ikem23_wapi.Services
             _httpClient = httpClient;
         }
 
-        public async Task<List<MolecularSequence>> Get()
+        public async Task<List<PatientRecord>> Get()
         {
             BundleDto<MolecularSequence> bundle = await _httpClient.GetFromJsonAsync<BundleDto<MolecularSequence>>(Globals.FHIRServerUri + "/MolecularSequence");
-            return bundle.Entry.Select(e => e.Resource).ToList();
+            List<MolecularSequence> mss = bundle.Entry.Select(e => e.Resource).ToList();
+
+            BundleDto<Observation> bundle2 = await _httpClient.GetFromJsonAsync<BundleDto<Observation>>(Globals.FHIRServerUri + "/Observation");
+            List<Observation> obss = bundle2.Entry.Select(e => e.Resource).ToList();
+
+            //BundleDto<DiagnosticReport> bundle3 = await _httpClient.GetFromJsonAsync<BundleDto<DiagnosticReport>>(Globals.FHIRServerUri + "/DiagnosticReport");
+            //List<DiagnosticReport> reps = bundle3.Entry.Select(e => e.Resource).ToList();
+
+            List<PatientRecord> records = new();
+            foreach (Observation observation in obss)
+            {
+                string msId = observation.DerivedFrom[0].Reference.Split('/')[1];
+                MolecularSequence obsMss = mss.Find(ms => ms.Id == msId);
+
+                PatientRecord record = new();
+
+                record.Projekt = msId + "-" + observation.Code.Text;
+
+                records.Add(record);
+            }
+
+
+            return records;
         }
 
         public async Task Post(PatientRecordCreateDto patientRecorDto)
         {
             TransactionBundleDto bundle = new();
             bundle.Type = "transaction";
-            bundle.Id = "my-new-bundle";
-
 
             DiagnosticReport diagnosticReport = new DiagnosticReport();
             List<Observation> observations = new List<Observation>();

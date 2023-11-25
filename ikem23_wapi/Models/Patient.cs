@@ -59,6 +59,7 @@ namespace ikem23_wapi.Models
 
     public class MolecularSequence
     {
+        public string Id { get; set; } = "0";
         public string ResourceType { get; set; } = nameof(MolecularSequence);
         public int CoordinateSystem { get; set; }
 

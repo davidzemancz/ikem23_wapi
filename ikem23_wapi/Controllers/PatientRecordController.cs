@@ -23,7 +23,7 @@ namespace ikem23_wapi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<MolecularSequence>> Get()
+        public async Task<IEnumerable<PatientRecord>> Get()
         {
             return await _dataService.Get();
         }
