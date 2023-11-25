@@ -11,9 +11,12 @@ namespace ikem23_wapi.Controllers
     public class PatientRecordController : ControllerBase
     {
         private readonly PatientRecordDataService _dataService;
-        public PatientRecordController(PatientRecordDataService dataService)
+        private readonly HttpClient _httpClient;
+
+        public PatientRecordController(PatientRecordDataService dataService, HttpClient httpClient)
         {
             _dataService = dataService;
+            _httpClient = httpClient;
         }
 
         [HttpGet]
