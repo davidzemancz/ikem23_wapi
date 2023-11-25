@@ -42,12 +42,13 @@ namespace ikem23_wapi.Services
                 foreach (var (ms,obs) in sequence)
                 {
                     string msGuid = Guid.NewGuid().ToString();
+                    string msFullUrl = "urn:uuid:" + msGuid;
                     molecularSequences.Add(ms);
                     
                     bundle.Entry.Add(new TransactionEntryDto()
                     {
                         Resource = ms,
-                        FillUrl = "urn:guid:" + msGuid,
+                        FullUrl = msFullUrl,
                         Request = new BundleRequestDto()
                         {
                             Method = "POST",
@@ -57,11 +58,13 @@ namespace ikem23_wapi.Services
                     });
 
                     string obsGuid = Guid.NewGuid().ToString();
+                    obs.DerivedFrom.Add(new ObjReference() { Reference = msFullUrl });
                     observations.Add(obs);
+
                     bundle.Entry.Add(new TransactionEntryDto()
                     {
                         Resource = obs,
-                        FillUrl = "urn:guid:" + obsGuid,
+                        FullUrl = "urn:uuid:" + obsGuid,
                         Request = new BundleRequestDto()
                         {
                             Method = "POST",

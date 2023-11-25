@@ -23,7 +23,7 @@
     public class TransactionEntryDto
     {
         public BundleRequestDto Request { get; set; }
-        public string FillUrl { get; set; }
+        public string FullUrl { get; set; }
         public object Resource { get; set; }
     }
 
