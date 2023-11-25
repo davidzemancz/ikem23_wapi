@@ -34,63 +34,41 @@ namespace ikem23_wapi.Services
             List<MolecularSequence> molecularSequences = new List<MolecularSequence>();
 
 
-            //foreach (var file in patientRecorDto.Files)
-            //{
-            //    var sequence = _excelReaderService.ReadMolecularSequence(file.File, file.Template, patientRecorDto);
-
-            //    bundle.Entry.Add(new EntryDto<TransactionEntryDto>()
-            //    {
-            //        Resource = new TransactionEntryDto()
-            //        {
-            //            Resource = sequence,
-            //            FillUrl = "urn:uuid:928c0716-1a7e-427e-95f5-cb56300e1737",
-            //            Request = new BundleRequestDto()
-            //            {
-            //                Method = "POST",
-            //                Url = "MolecularSequence",
-            //               IfNoneExist = "identifier=urn:oid:2.16.528.1.1007.3.1|93827369"
-            //            }
-            //        }
-            //    });
-
-            //    molecularSequences.Concat(sequence);
-            //}
-
-            bundle.Entry.Add(new TransactionEntryDto()
+            foreach (var file in patientRecorDto.Files)
             {
-                    Resource = new MolecularSequence()
+                var sequence = _excelReaderService.ReadMolecularSequence(file.File, file.Template, patientRecorDto);
+
+                foreach (var item in sequence)
+                {
+                    bundle.Entry.Add(new TransactionEntryDto()
                     {
-                        CoordinateSystem = 0,
-                        ObservedSeq = "A",
-                        Patient = new ObjReference() { Reference = "Patient/1" },
-                        ReadCoverage = 1,
-                        Type = "dna",
-                        Quality = new List<Quality>()
+                        Resource = new TransactionEntryDto()
                         {
-                            new Quality(){Type = "snp", Score = new Score(){Value = 5}}
-                        },
-                        Variant = new List<Variant>()
-                        {
-                            new Variant(){Start = 5, End = 10, ObservedAllele = "A", ReferenceAllele = "G"}
+                            Resource = item,
+                            FillUrl = "urn:uuid:928c0716-1a7e-427e-95f5-cb56300e1737",
+                            Request = new BundleRequestDto()
+                            {
+                                Method = "POST",
+                                Url = "MolecularSequence",
+                                IfNoneExist = "identifier=urn:oid:2.16.528.1.1007.3.1|93827369"
+                            }
                         }
-                    },
-                    FillUrl = "urn:uuid:928c0716-1a7e-427e-95f5-cb56300e1737",
-                    Request = new BundleRequestDto()
-                    {
-                        Method = "POST",
-                        Url = "MolecularSequence",
-                        IfNoneExist = "identifier=urn:oid:2.16.528.1.1007.3.1|93827369"
-                    }
-            });
+                    });
 
-            //string json = JsonSerializer.Serialize(bundle, new JsonSerializerOptions() { };
+                    var response = await _httpClient.PostAsJsonAsync(Globals.FHIRServerUri, item);
+                    string json = JsonSerializer.Serialize(item, new JsonSerializerOptions() { });
 
-            var response = await _httpClient.PostAsJsonAsync(Globals.FHIRServerUri, bundle);
-            string err = await response.Content.ReadAsStringAsync();
-            response.EnsureSuccessStatusCode();
+                    string err = await response.Content.ReadAsStringAsync();
+                    response.EnsureSuccessStatusCode();
+                    string json2 = JsonSerializer.Serialize(bundle, new JsonSerializerOptions() { });
+                }
+                
 
 
+                molecularSequences.Concat(sequence);
+            }
 
+          
             //TODO: zde ulozit molecularSequences
 
             //foreach (var molecularSequence in molecularSequences)
