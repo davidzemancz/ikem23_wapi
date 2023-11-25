@@ -57,11 +57,11 @@ namespace ikem23_wapi.Models
 
     public class MolecularSequence
     {
-        public string ResourceType { get; set; }
+        public string ResourceType { get; set; } = nameof(MolecularSequence);
         public string Id { get; set; }
         public string Type { get; set; }
         public int CoordinateSystem { get; set; }
-        public Patient Patient { get; set; }
+        public ObjReference Patient { get; set; }
         public List<Variant> Variant { get; set; }
         public string ObservedSeq { get; set; }
         public List<Quality> Quality { get; set; }
