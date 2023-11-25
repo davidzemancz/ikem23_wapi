@@ -59,11 +59,22 @@ namespace ikem23_wapi.Models
     {
         public string ResourceType { get; set; } = nameof(MolecularSequence);
         public int CoordinateSystem { get; set; }
+
+        public ReferenceSeq ReferenceSeq { get; set; } = new ReferenceSeq();
+
         public ObjReference Patient { get; set; }
         public List<Variant> Variant { get; set; } = new List<Variant>();
         public string ObservedSeq { get; set; } = "A";
         public List<Quality> Quality { get; set; }
         public int ReadCoverage { get; set; }
+    }
+
+    public class ReferenceSeq
+    {
+        public Code Chromosome { get; set; } = new Code { Text = "placeholder" };
+
+        public string Orientation { get; set; } = "sense";
+
     }
 
     public class Variant

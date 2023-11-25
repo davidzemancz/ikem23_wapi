@@ -12,7 +12,7 @@ namespace test
     {
         public static async Task Main(string[] args)
         {
-            string filepath = "../../../../test.xlsx";
+            string filepath = "../../../../test2.xlsx";
             ImportTemplate it = loadTestTemplate();
             var http = new HttpClient();
             http.DefaultRequestHeaders.Add("x-api-key", Globals.FHIRServerApiKey);
@@ -33,11 +33,10 @@ namespace test
         public static ImportTemplate loadTestTemplate()
         {
             ImportTemplate it = new ImportTemplate();
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "A", Id = "Chromosome" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "A", Id = "chromosome" });
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "B", Id = "Region" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "F", Id = "Length" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "G", Id = "Count" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "H", Id = "Coverage" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "D", Id = "ReferenceAllele" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "E", Id = "ObservedAllele" });
             return it;
         }
     }

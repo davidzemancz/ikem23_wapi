@@ -88,7 +88,16 @@ namespace ikem23_wapi.Services
                     if (colDef.Id == "Score")
                     {
                         qualitiy.Score = new Score { Value = int.Parse(cellVal.ToString()) };
-                    } 
+                    }
+                    if (colDef.Id == "chromosome")
+                    {
+                        molecularSequence.ReferenceSeq = new ReferenceSeq { Chromosome = new Code { Text = cellVal.ToString() } };
+                    }
+                    if (colDef.Id == "orientation")
+                    {
+                        //molecularSequence.ReferenceSeq = new ReferenceSeq { Orientation = cellVal.ToString()  };
+                        //TODO zjistit converzi
+                    }
                 }
                 importObj.Add(molecularSequence);
             }
