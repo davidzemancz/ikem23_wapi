@@ -5,6 +5,13 @@ namespace ikem23_wapi.Services
 {
     public class PatientRecordDataService
     {
+        private readonly ExcelReaderService _excelReaderService;
+
+
+        public PatientRecordDataService(ExcelReaderService excelReaderService)
+        {
+            _excelReaderService = excelReaderService;
+        }
 
         public async Task<List<PatientRecord>> Get()
         {
@@ -19,9 +26,11 @@ namespace ikem23_wapi.Services
             
             foreach (var file in patientRecorDto.Files)
             {
-                //var sequence = ReadMolecularSequence(file.File, file.Template, patientRecorDto);
-                //molecularSequences.Concat(sequence);
+                var sequence = _excelReaderService.ReadMolecularSequence(file.File, file.Template, patientRecorDto);
+                molecularSequences.Concat(sequence);
             }
+
+            //TODO: zde ulozit molecularSequences
 
             foreach (var molecularSequence in molecularSequences)
             {
