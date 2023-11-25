@@ -42,33 +42,26 @@ namespace ikem23_wapi.Services
                 {
                     bundle.Entry.Add(new TransactionEntryDto()
                     {
-                        Resource = new TransactionEntryDto()
+                        Resource = item,
+                        FillUrl = "urn:uuid:928c0716-1a7e-427e-95f5-cb56300e1737",
+                        Request = new BundleRequestDto()
                         {
-                            Resource = item,
-                            FillUrl = "urn:uuid:928c0716-1a7e-427e-95f5-cb56300e1737",
-                            Request = new BundleRequestDto()
-                            {
-                                Method = "POST",
-                                Url = "MolecularSequence",
-                                IfNoneExist = "identifier=urn:oid:2.16.528.1.1007.3.1|93827369"
-                            }
+                            Method = "POST",
+                            Url = "MolecularSequence",
+                            IfNoneExist = "identifier=urn:oid:2.16.528.1.1007.3.1|93827369"
                         }
-                    });
-
-                    var response = await _httpClient.PostAsJsonAsync(Globals.FHIRServerUri, item);
-                    string json = JsonSerializer.Serialize(item, new JsonSerializerOptions() { });
-
-                    string err = await response.Content.ReadAsStringAsync();
-                    response.EnsureSuccessStatusCode();
-                    string json2 = JsonSerializer.Serialize(bundle, new JsonSerializerOptions() { });
+                    });   
                 }
-                
-
 
                 molecularSequences.Concat(sequence);
             }
 
-          
+            var response = await _httpClient.PostAsJsonAsync(Globals.FHIRServerUri, bundle);
+            string json = JsonSerializer.Serialize(bundle, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+
+            string err = await response.Content.ReadAsStringAsync();
+            response.EnsureSuccessStatusCode();
+
             //TODO: zde ulozit molecularSequences
 
             //foreach (var molecularSequence in molecularSequences)
