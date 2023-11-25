@@ -28,7 +28,29 @@ namespace ikem23_wapi
                 return httpClient;
             });
 
+            // Cors
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("justAllowAnything", config =>
+                {
+                    config
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+
+                options.AddPolicy("localhost", config =>
+                {
+                    config.WithOrigins("http://localhost:3000")
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
+            });
+
             var app = builder.Build();
+
+            app.UseCors("justAllowAnything");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
