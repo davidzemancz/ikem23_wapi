@@ -83,7 +83,7 @@ namespace ikem23_wapi.Services
                     }
                     if (colDef.Id == "Type")
                     {
-                        qualitiy.Type = cellVal.ToString();
+                        //qualitiy.Type = cellVal.ToString();
                     }
                     if (colDef.Id == "Score")
                     {
