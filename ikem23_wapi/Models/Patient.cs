@@ -40,7 +40,7 @@ namespace ikem23_wapi.Models
         public string Status { get; set; }
         public Code Code { get; set; }
         public List<Component> Component { get; set; }
-        public ObjReference Value { get; set; }
+        public ObjReference Value { get; set; } //zde je ulozena molecular sequence
     }
 
     public class Code
