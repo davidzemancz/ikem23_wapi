@@ -29,7 +29,6 @@ namespace ikem23_wapi.Services
             }
 
             return templates;
-
         } 
 
         public async Task Post(ImportTemplate importTemplate)
