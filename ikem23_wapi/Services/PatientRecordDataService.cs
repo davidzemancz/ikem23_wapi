@@ -22,6 +22,15 @@ namespace ikem23_wapi.Services
                 var sequence = ReadMolecularSequence(file.File, file.Template, patientRecorDto);
                 molecularSequences.Concat(sequence);
             }
+
+            foreach (var molecularSequence in molecularSequences)
+            {
+                Observation o = new Observation();
+                o.Code = null;
+                o.Component = null;
+                observations.Add(o);
+                o.Value = new ObjReference { Reference = "MolecularSequence/" + molecularSequence.Id.ToString() };
+            }
         }
 
         public async Task Delete(int id)
