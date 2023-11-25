@@ -8,6 +8,7 @@ namespace ikem23_wapi.DTOs
         public string IdBiopsie { get; set; }
         public string Projekt { get; set; }
         public string Diagnoza { get; set; }
+        public double PomerNadorovychBunek { get; set; }
         public string OnkologickyKod { get; set; }
         public int KodPojistovna { get; set; }
         public DateTime PrijemLMP { get; set; }

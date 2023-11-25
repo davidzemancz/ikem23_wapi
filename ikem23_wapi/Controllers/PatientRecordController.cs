@@ -3,6 +3,7 @@ using ikem23_wapi.Models;
 using ikem23_wapi.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace ikem23_wapi.Controllers
 {
@@ -11,11 +12,13 @@ namespace ikem23_wapi.Controllers
     public class PatientRecordController : ControllerBase
     {
         private readonly PatientRecordDataService _dataService;
+        private readonly ImportTemplateDataService _importDataService;
         private readonly HttpClient _httpClient;
 
-        public PatientRecordController(PatientRecordDataService dataService, HttpClient httpClient)
+        public PatientRecordController(PatientRecordDataService dataService, HttpClient httpClient, ImportTemplateDataService importDataService)
         {
             _dataService = dataService;
+            _importDataService = importDataService;
             _httpClient = httpClient;
         }
 
@@ -28,13 +31,34 @@ namespace ikem23_wapi.Controllers
         [HttpPost("create")]
         public async Task Create(IFormCollection data)
         {
-            // TODO
-            // 1. read excel files
-            // Create PatientRecords
-
             var dto = new PatientRecordCreateDto();
 
-           
+            dto.PacientId = int.Parse(data["pacientId"].First());
+            dto.KodPojistovna = int.Parse(data["kodPojistovna"].First());
+            dto.Diagnoza = data["diagnoza"].First();
+            dto.OnkologickyKod = data["onkologickyKod"].First();
+            dto.PomerNadorovychBunek = double.Parse(data["pomerNadorovychBunek"].First());
+            dto.IdBiopsie = data["idBiopsie"].First();
+            dto.PrijemLMP = DateTime.Parse(data["prijemLMP"].First(), CultureInfo.InvariantCulture);
+            dto.UzavreniLMP = DateTime.Parse(data["prijemLMP"].First(), CultureInfo.InvariantCulture);
+
+            int i = 0;
+            foreach (string item in data.Keys.Where(k => k.StartsWith("file")))
+            {
+                int templateId = int.Parse(data[item]);
+
+                var template = await _importDataService.Get(templateId);
+
+                dto.Files.Add(new PatientRecordFileDto()
+                {
+                    File = data.Files[i].OpenReadStream(),
+                    Template = template
+                });
+                i++;
+            }
+            
+            // TODO: zavolat service pro ulozeni do FHIRu
+
         }
 
 
