@@ -17,6 +17,7 @@ namespace test
             var http = new HttpClient();
             http.DefaultRequestHeaders.Add("x-api-key", Globals.FHIRServerApiKey);
             var importService = new ImportTemplateDataService(http);
+            await importService.Post(it);
             var excelService = new ExcelReaderService();
             var patientRecordService = new PatientRecordDataService(excelService, http);
 
@@ -33,6 +34,7 @@ namespace test
         public static ImportTemplate loadTestTemplate()
         {
             ImportTemplate it = new ImportTemplate();
+            it.Name = "nezbijej me pls";
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "A", Id = "chromosome" });
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "B", Id = "Region" });
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "D", Id = "ReferenceAllele" });

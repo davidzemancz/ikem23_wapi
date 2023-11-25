@@ -38,11 +38,13 @@ namespace ikem23_wapi.Services
             {
                 var sequence = _excelReaderService.ReadMolecularSequence(file.File, file.Template, patientRecorDto);
 
-                foreach (var item in sequence)
+                foreach (var (ms,obs) in sequence)
                 {
+                    molecularSequences.Add(ms);
+                    observations.Add(obs);
                     bundle.Entry.Add(new TransactionEntryDto()
                     {
-                        Resource = item,
+                        Resource = ms,
                         FillUrl = "urn:uuid:928c0716-1a7e-427e-95f5-cb56300e1737",
                         Request = new BundleRequestDto()
                         {
@@ -52,8 +54,6 @@ namespace ikem23_wapi.Services
                         }
                     });   
                 }
-
-                molecularSequences.Concat(sequence);
             }
 
             var response = await _httpClient.PostAsJsonAsync(Globals.FHIRServerUri, bundle);
