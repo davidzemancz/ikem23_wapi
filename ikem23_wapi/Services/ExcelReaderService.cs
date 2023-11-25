@@ -25,7 +25,7 @@ namespace ikem23_wapi.Services
             patient.Reference = "Patient/" + patientRecorDto.PacientId.ToString();
             var importObj = new List<MolecularSequence>();
             var workbook = new XLWorkbook(stream);
-            var ws1 = workbook.Worksheet(2);
+            var ws1 = workbook.Worksheet(1);
 
 
             if (ws1.RowsUsed().Count() <= 0) return null;

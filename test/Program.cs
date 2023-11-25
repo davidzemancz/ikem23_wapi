@@ -1,5 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using ikem23_wapi;
+using ikem23_wapi.DTOs;
 using ikem23_wapi.Models;
 using ikem23_wapi.Services;
 using System.Net.Http;
@@ -9,20 +10,24 @@ namespace test
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            string filepath = "test.xlsx";
+            string filepath = "../../../../test.xlsx";
             ImportTemplate it = loadTestTemplate();
             var http = new HttpClient();
             http.DefaultRequestHeaders.Add("x-api-key", Globals.FHIRServerApiKey);
-            var service = new ImportTemplateDataService(http);
+            var importService = new ImportTemplateDataService(http);
+            var excelService = new ExcelReaderService();
+            var patientRecordService = new PatientRecordDataService(excelService, http);
 
-            string String1 = JsonSerializer.Serialize(it);
-            var x = service.MapImportTemplateToConceptMap(it);
-            var y = service.MapConceptMapToImportTemplate(x);
-            string String2 = JsonSerializer.Serialize(y);
-            bool rovnajiSe = String1 == String2;
-            Console.WriteLine("");
+            using Stream stream = new StreamReader(filepath).BaseStream;
+             
+            await patientRecordService.Post(new PatientRecordCreateDto()
+            {
+                PacientId = 1,
+                Files = new List<PatientRecordFileDto>() { new PatientRecordFileDto() { Template = it, File = stream } }
+
+            });
         }
 
         public static ImportTemplate loadTestTemplate()
