@@ -27,6 +27,9 @@ namespace ikem23_wapi.Services
             BundleDto<Observation> bundle2 = await _httpClient.GetFromJsonAsync<BundleDto<Observation>>(Globals.FHIRServerUri + "/Observation");
             List<Observation> obss = bundle2.Entry.Select(e => e.Resource).ToList();
 
+            BundleDto<Specimen> bundle3 = await _httpClient.GetFromJsonAsync<BundleDto<Specimen>>(Globals.FHIRServerUri + "/Specimen");
+            List<Specimen> spess = bundle3.Entry.Select(e => e.Resource).ToList();
+
             //BundleDto<DiagnosticReport> bundle3 = await _httpClient.GetFromJsonAsync<BundleDto<DiagnosticReport>>(Globals.FHIRServerUri + "/DiagnosticReport");
             //List<DiagnosticReport> reps = bundle3.Entry.Select(e => e.Resource).ToList();
 
@@ -35,11 +38,16 @@ namespace ikem23_wapi.Services
             foreach (Observation observation in obss)
             {
                 string msId = observation.DerivedFrom[0].Reference.Split('/')[1];
+                string smId = observation.Specimen.Reference.Split("/")[1];
+
                 MolecularSequence obsMss = mss.Find(ms => ms.Id == msId);
+
+                Specimen obSpec = spess.Find(ms => ms.Id == smId);
 
                 PatientRecord record = new();
 
                 record.Id = ++id;
+                record.IdBiopsie = obSpec.Extension[0]["valueString"];
                 record.Projekt = msId + "-" + observation.Code.Text;
                 record.Chromosome = obsMss.ReferenceSeq.Chromosome.Text;
                 record.Reference = obsMss.Variant[0].ReferenceAllele;

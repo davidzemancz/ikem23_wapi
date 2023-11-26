@@ -65,6 +65,7 @@ namespace ikem23_wapi.Models
 
     public class Specimen
     {
+        public string Id { get; set; } = "0";
         public string ResourceType { get; set; } = nameof(Specimen);
 
         public Code Type { get; set; } = new Code { Text = "unknown" };

@@ -45,7 +45,7 @@ namespace ikem23_wapi.Controllers
             int i = 0;
             foreach (string item in data.Keys.Where(k => k.StartsWith("file")))
             {
-                int templateId = 8464; //int.Parse(data[item]);
+                int templateId = int.Parse(data[item]);
 
                 var template = await _importDataService.Get(templateId);
 

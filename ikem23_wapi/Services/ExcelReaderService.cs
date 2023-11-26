@@ -11,7 +11,7 @@ namespace ikem23_wapi.Services
 
     public class ExcelReaderService
     {
-       
+
         public List<(MolecularSequence, Observation)> ReadMolecularSequence(string fileName, FhirImportTemplate template, PatientRecordCreateDto patientRecorDto)
         {
 
@@ -38,7 +38,7 @@ namespace ikem23_wapi.Services
             ObjReference patient = new ObjReference();
             patient.Reference = "Patient/" + patientRecorDto.PacientId.ToString();
             var retObject = new List<(MolecularSequence, Observation)>();
-            
+
             var workbook = new XLWorkbook(stream);
             var ws1 = workbook.Worksheet(1);
 
@@ -50,14 +50,14 @@ namespace ikem23_wapi.Services
                 var rowNumber = row.RowNumber();
                 var molecularSequence = new MolecularSequence { };
                 var observation = new Observation();
-                retObject.Add((molecularSequence,observation));
+                retObject.Add((molecularSequence, observation));
 
 
                 //Variant info
                 List<Variant> variants = new List<Variant>();
                 Variant variant = new Variant();
                 variants.Add(variant);
-                
+
                 //Quality info
                 List<Quality> qualities = new List<Quality>();
                 Quality qualitiy = new Quality();
@@ -121,51 +121,66 @@ namespace ikem23_wapi.Services
                     }
                     if (colDef.Id == ObservationName.observationgeneticsGeneGene)
                     {
-                        Dictionary<string, string> dict = new Dictionary<string, string>
+                        if (!string.IsNullOrEmpty(cellVal.ToString()))
+                        {
+                            Dictionary<string, string> dict = new Dictionary<string, string>
                         {
                             { "url", ObservationName.observationgeneticsGeneGene },
                             { "valueString", cellVal.ToString() }
                         };
-                        observation.Extension.Add(dict);
+                            observation.Extension.Add(dict);
+                        }
                     }
                     if (colDef.Id == ObservationName.observationgeneticsVariantName)
                     {
-                        Dictionary<string, string> dict = new Dictionary<string, string>
+                        if (!string.IsNullOrEmpty(cellVal.ToString()))
+                        {
+                            Dictionary<string, string> dict = new Dictionary<string, string>
                         {
                             { "url", ObservationName.observationgeneticsVariantName },
                             { "valueString", cellVal.ToString() }
                         };
-                        observation.Extension.Add(dict);
+                            observation.Extension.Add(dict);
+                        }
                     }
 
                     if (colDef.Id == ObservationName.observationgeneticsAminoAcidChangeName)
                     {
-                        Dictionary<string, string> dict = new Dictionary<string, string>
+                        if (!string.IsNullOrEmpty(cellVal.ToString()))
+                        {
+                            Dictionary<string, string> dict = new Dictionary<string, string>
                         {
                             { "url", ObservationName.observationgeneticsAminoAcidChangeName },
                             { "valueString", cellVal.ToString() }
                         };
-                        observation.Extension.Add(dict);
+                            observation.Extension.Add(dict);
+                        }
 
                     }
                     if (colDef.Id == ObservationName.observationgeneticsDNARegionNameDNARegionName)
                     {
-                        Dictionary<string, string> dict = new Dictionary<string, string>
+                        if (!string.IsNullOrEmpty(cellVal.ToString()))
                         {
-                            { "url", ObservationName.observationgeneticsDNARegionNameDNARegionName },
-                            { "valueString", cellVal.ToString() }
-                        };
-                        observation.Extension.Add(dict);
+                            Dictionary<string, string> dict = new Dictionary<string, string>
+                            {
+                                { "url", ObservationName.observationgeneticsDNARegionNameDNARegionName },
+                                { "valueString", cellVal.ToString() }
+                            };
 
+                            observation.Extension.Add(dict);
+                        }
                     }
                     if (colDef.Id == ObservationName.observationgeneticsAminoAcidChangeType)
                     {
-                        Dictionary<string, string> dict = new Dictionary<string, string>
+                        if (!string.IsNullOrEmpty(cellVal.ToString()))
+                        {
+                            Dictionary<string, string> dict = new Dictionary<string, string>
                         {
                             { "url", ObservationName.observationgeneticsAminoAcidChangeType },
                             { "valueString", cellVal.ToString() }
                         };
-                        observation.Extension.Add(dict);
+                            observation.Extension.Add(dict);
+                        }
                     }
                 }
             }
