@@ -2,6 +2,8 @@
 using ikem23_wapi.DTOs;
 using ikem23_wapi.Models;
 using System.Net.Http;
+using System.Reflection.Metadata;
+using System.Text.Json;
 
 namespace ikem23_wapi.Services
 {
@@ -19,7 +21,7 @@ namespace ikem23_wapi.Services
         {
             string query = "";
 
-            BundleDto<ConceptMap> bundle = await _httpClient.GetFromJsonAsync<BundleDto<ConceptMap>>(Globals.FHIRServerUri + "/ConceptMap" + query);
+            BundleDto<FHIRConceptMap> bundle = await _httpClient.GetFromJsonAsync<BundleDto<FHIRConceptMap>>(Globals.FHIRServerUri + "/ConceptMap" + query);
 
             List<FhirImportTemplate> templates = new();
 
@@ -33,16 +35,17 @@ namespace ikem23_wapi.Services
 
         public async Task<FhirImportTemplate> Get(int id)
         {
-            ConceptMap cm  = await _httpClient.GetFromJsonAsync<ConceptMap>(Globals.FHIRServerUri + $"/ConceptMap/{id}");
+            FHIRConceptMap cm  = await _httpClient.GetFromJsonAsync<FHIRConceptMap>(Globals.FHIRServerUri + $"/ConceptMap/{id}");
             return MapConceptMapToImportTemplate(cm);
         }
 
         public async Task Post(FhirImportTemplate importTemplate)
         {
-            ConceptMap cm = MapImportTemplateToConceptMap(importTemplate);
+            FHIRConceptMap cm = MapImportTemplateToConceptMap(importTemplate);
 
             var response = await _httpClient.PostAsJsonAsync(Globals.FHIRServerUri + "/ConceptMap", cm);
             string err = await response.Content.ReadAsStringAsync();
+            string json = JsonSerializer.Serialize(cm, new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
             response.EnsureSuccessStatusCode();
         }
 
@@ -51,9 +54,9 @@ namespace ikem23_wapi.Services
             await _httpClient.DeleteAsync(Globals.FHIRServerUri + $"/ConceptMap/{id}");
         }
 
-        public ConceptMap MapImportTemplateToConceptMap(FhirImportTemplate it)
+        public FHIRConceptMap MapImportTemplateToConceptMap(FhirImportTemplate it)
         {
-            ConceptMap cm = new ConceptMap();
+            FHIRConceptMap cm = new FHIRConceptMap();
             cm.Name = it.Name;
             cm.Id = it.Id.ToString();
 
@@ -81,7 +84,7 @@ namespace ikem23_wapi.Services
         }
 
 
-        public FhirImportTemplate MapConceptMapToImportTemplate(ConceptMap cm)
+        public FhirImportTemplate MapConceptMapToImportTemplate(FHIRConceptMap cm)
         {
             FhirImportTemplate it = new FhirImportTemplate();
             it.Name = cm.Name;

@@ -10,6 +10,11 @@ namespace test
 {
     public class Program
     {
+        /// <summary>
+        /// Testovani program
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
         public static async Task Main(string[] args)
         {
             string filepath = "../../../../test2.xlsx";
@@ -38,15 +43,14 @@ namespace test
         {
             FhirImportTemplate it = new FhirImportTemplate();
             it.Name = "Default VFN Template";
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "A", Id = "chromosome" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "B", Id = "Region" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "D", Id = "ReferenceAllele" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "E", Id = "ObservedAllele" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "U", Id = "observationgeneticsGeneGene" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "V", Id = "Coding region change" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "W", Id = "Amino acid change" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "Z", Id = "Exon Number" });
-            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "AP", Id = "Origin Tracks" });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "A", Id = MoleculeSequenceName.chromosome });
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "D", Id = MoleculeSequenceName.ReferenceAllele});
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "E", Id = MoleculeSequenceName.ObservedAllele});
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "U", Id = ObservationName.observationgeneticsGeneGene});
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "V", Id = ObservationName.observationgeneticsVariantName});
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "W", Id = ObservationName.observationgeneticsAminoAcidChangeName});
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "Z", Id = ObservationName.observationgeneticsDNARegionNameDNARegionName});
+            it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "AP", Id =ObservationName.observationgeneticsAminoAcidChangeType});
             return it;
         }
     }

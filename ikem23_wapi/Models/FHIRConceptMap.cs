@@ -3,9 +3,9 @@
     using DocumentFormat.OpenXml.Wordprocessing;
     using System.Collections.Generic;
 
-    public class ConceptMap
+    public class FHIRConceptMap
     {
-        public string ResourceType { get; set; } = nameof(ConceptMap);
+        public string ResourceType { get; set; } = "ConceptMap";
         public string Id { get; set; }
         public string Status { get; set; } = "active";
         public string Name { get; set; }

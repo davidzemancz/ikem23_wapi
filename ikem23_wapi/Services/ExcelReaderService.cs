@@ -69,6 +69,7 @@ namespace ikem23_wapi.Services
 
 
                 //Data are loaded based on user selected import template of excel columns
+                //This matching is based on FHIR standard name and custom templates
                 foreach (var col in ws1.ColumnsUsed())
                 {
                     int colNum = col.ColumnNumber();
@@ -120,40 +121,50 @@ namespace ikem23_wapi.Services
                     }
                     if (colDef.Id == ObservationName.observationgeneticsGeneGene)
                     {
-                        Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", ObservationName.observationgeneticsGeneGene);
-                        dict.Add("valueString", cellVal.ToString());
+                        Dictionary<string, string> dict = new Dictionary<string, string>
+                        {
+                            { "url", ObservationName.observationgeneticsGeneGene },
+                            { "valueString", cellVal.ToString() }
+                        };
                         observation.Extension.Add(dict);
                     }
                     if (colDef.Id == ObservationName.observationgeneticsVariantName)
                     {
-                        Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", ObservationName.observationgeneticsVariantName);
-                        dict.Add("valueString", cellVal.ToString());
+                        Dictionary<string, string> dict = new Dictionary<string, string>
+                        {
+                            { "url", ObservationName.observationgeneticsVariantName },
+                            { "valueString", cellVal.ToString() }
+                        };
                         observation.Extension.Add(dict);
                     }
 
                     if (colDef.Id == ObservationName.observationgeneticsAminoAcidChangeName)
                     {
-                        Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", ObservationName.observationgeneticsAminoAcidChangeName);
-                        dict.Add("valueString", cellVal.ToString());
+                        Dictionary<string, string> dict = new Dictionary<string, string>
+                        {
+                            { "url", ObservationName.observationgeneticsAminoAcidChangeName },
+                            { "valueString", cellVal.ToString() }
+                        };
                         observation.Extension.Add(dict);
 
                     }
                     if (colDef.Id == ObservationName.observationgeneticsDNARegionNameDNARegionName)
                     {
-                        Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", ObservationName.observationgeneticsDNARegionNameDNARegionName);
-                        dict.Add("valueString", cellVal.ToString());
+                        Dictionary<string, string> dict = new Dictionary<string, string>
+                        {
+                            { "url", ObservationName.observationgeneticsDNARegionNameDNARegionName },
+                            { "valueString", cellVal.ToString() }
+                        };
                         observation.Extension.Add(dict);
 
                     }
                     if (colDef.Id == ObservationName.observationgeneticsAminoAcidChangeType)
                     {
-                        Dictionary<string, string> dict = new Dictionary<string, string>();
-                        dict.Add("url", ObservationName.observationgeneticsAminoAcidChangeType);
-                        dict.Add("valueString", cellVal.ToString());
+                        Dictionary<string, string> dict = new Dictionary<string, string>
+                        {
+                            { "url", ObservationName.observationgeneticsAminoAcidChangeType },
+                            { "valueString", cellVal.ToString() }
+                        };
                         observation.Extension.Add(dict);
                     }
                 }
