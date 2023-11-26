@@ -31,6 +31,7 @@ namespace ikem23_wapi.Services
             //List<DiagnosticReport> reps = bundle3.Entry.Select(e => e.Resource).ToList();
 
             List<PatientRecord> records = new();
+            int id = 0;
             foreach (Observation observation in obss)
             {
                 string msId = observation.DerivedFrom[0].Reference.Split('/')[1];
@@ -38,6 +39,7 @@ namespace ikem23_wapi.Services
 
                 PatientRecord record = new();
 
+                record.Id = ++id;
                 record.Projekt = msId + "-" + observation.Code.Text;
                 record.Chromosome = obsMss.ReferenceSeq.Chromosome.Text;
                 record.Reference = obsMss.Variant[0].ReferenceAllele;
