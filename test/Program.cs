@@ -13,7 +13,7 @@ namespace test
         public static async Task Main(string[] args)
         {
             string filepath = "../../../../test2.xlsx";
-            ImportTemplate it = loadTestTemplate();
+            FhirImportTemplate it = loadTestTemplate();
             var http = new HttpClient();
             http.DefaultRequestHeaders.Add("x-api-key", Globals.FHIRServerApiKey);
             var importService = new ImportTemplateDataService(http);
@@ -34,9 +34,9 @@ namespace test
             });
         }
 
-        public static ImportTemplate loadTestTemplate()
+        public static FhirImportTemplate loadTestTemplate()
         {
-            ImportTemplate it = new ImportTemplate();
+            FhirImportTemplate it = new FhirImportTemplate();
             it.Name = "Default VFN Template";
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "A", Id = "chromosome" });
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "B", Id = "Region" });

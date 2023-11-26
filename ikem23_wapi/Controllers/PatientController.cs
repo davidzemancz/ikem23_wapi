@@ -19,7 +19,7 @@ namespace ikem23_wapi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Patient>> Get([FromQuery]string name)
+        public async Task<IEnumerable<FHIRDataModels>> Get([FromQuery]string name)
         {
             return await _dataService.Get(name);
         }

@@ -19,6 +19,6 @@ namespace ikem23_wapi.DTOs
     public class PatientRecordFileDto
     {
         public Stream File { get; set; }
-        public ImportTemplate Template { get; set; }
+        public FhirImportTemplate Template { get; set; }
     }
 }

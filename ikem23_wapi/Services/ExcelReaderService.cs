@@ -12,14 +12,14 @@ namespace ikem23_wapi.Services
     public class ExcelReaderService
     {
        
-        public List<(MolecularSequence, Observation)> ReadMolecularSequence(string fileName, ImportTemplate template, PatientRecordCreateDto patientRecorDto)
+        public List<(MolecularSequence, Observation)> ReadMolecularSequence(string fileName, FhirImportTemplate template, PatientRecordCreateDto patientRecorDto)
         {
 
             using Stream stream = new StreamReader(fileName).BaseStream;
             return ReadMolecularSequence(stream, template, patientRecorDto);
         }
 
-        public List<Specimen> ReadSpecimenSequence(string fileName, ImportTemplate template, PatientRecordCreateDto patientRecorDto)
+        public List<Specimen> ReadSpecimenSequence(string fileName, FhirImportTemplate template, PatientRecordCreateDto patientRecorDto)
         {
 
             using Stream stream = new StreamReader(fileName).BaseStream;
@@ -33,7 +33,7 @@ namespace ikem23_wapi.Services
         /// <param name="template"></param>
         /// <param name="patientRecorDto"></param>
         /// <returns></returns>
-        public List<(MolecularSequence, Observation)> ReadMolecularSequence(Stream stream, ImportTemplate template, PatientRecordCreateDto patientRecorDto)
+        public List<(MolecularSequence, Observation)> ReadMolecularSequence(Stream stream, FhirImportTemplate template, PatientRecordCreateDto patientRecorDto)
         {
             ObjReference patient = new ObjReference();
             patient.Reference = "Patient/" + patientRecorDto.PacientId.ToString();
@@ -162,7 +162,7 @@ namespace ikem23_wapi.Services
             return retObject;
         }
 
-        public List<Specimen> ReadSpecimenSequence(Stream stream, ImportTemplate template, PatientRecordCreateDto patientRecorDto)
+        public List<Specimen> ReadSpecimenSequence(Stream stream, FhirImportTemplate template, PatientRecordCreateDto patientRecorDto)
         {
             ObjReference patient = new ObjReference();
             patient.Reference = "Patient/" + patientRecorDto.PacientId.ToString();
@@ -218,7 +218,7 @@ namespace ikem23_wapi.Services
             return retObject;
         }
 
-        public void renameColumns(ImportTemplate template, Dictionary<int, string> colIdName)
+        public void renameColumns(FhirImportTemplate template, Dictionary<int, string> colIdName)
         {
 
         }

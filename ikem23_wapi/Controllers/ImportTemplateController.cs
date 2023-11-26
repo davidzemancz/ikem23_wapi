@@ -17,20 +17,20 @@ namespace ikem23_wapi.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ImportTemplate>> Get()
+        public async Task<IEnumerable<FhirImportTemplate>> Get()
         {
             return await _dataService.Get();
         }
 
 
         [HttpGet("{id}")]
-        public async Task<ImportTemplate> Get(int id)
+        public async Task<FhirImportTemplate> Get(int id)
         {
             return await _dataService.Get(id);
         }
 
         [HttpPost]
-        public async Task Post([FromBody] ImportTemplate value)
+        public async Task Post([FromBody] FhirImportTemplate value)
         {
             await _dataService.Post(value);
         }

@@ -15,13 +15,13 @@ namespace ikem23_wapi.Services
 
         }
 
-        public async Task<List<ImportTemplate>> Get()
+        public async Task<List<FhirImportTemplate>> Get()
         {
             string query = "";
 
             BundleDto<ConceptMap> bundle = await _httpClient.GetFromJsonAsync<BundleDto<ConceptMap>>(Globals.FHIRServerUri + "/ConceptMap" + query);
 
-            List<ImportTemplate> templates = new();
+            List<FhirImportTemplate> templates = new();
 
             foreach (var cm in bundle.Entry)
             {
@@ -31,13 +31,13 @@ namespace ikem23_wapi.Services
             return templates;
         }
 
-        public async Task<ImportTemplate> Get(int id)
+        public async Task<FhirImportTemplate> Get(int id)
         {
             ConceptMap cm  = await _httpClient.GetFromJsonAsync<ConceptMap>(Globals.FHIRServerUri + $"/ConceptMap/{id}");
             return MapConceptMapToImportTemplate(cm);
         }
 
-        public async Task Post(ImportTemplate importTemplate)
+        public async Task Post(FhirImportTemplate importTemplate)
         {
             ConceptMap cm = MapImportTemplateToConceptMap(importTemplate);
 
@@ -51,7 +51,7 @@ namespace ikem23_wapi.Services
             await _httpClient.DeleteAsync(Globals.FHIRServerUri + $"/ConceptMap/{id}");
         }
 
-        public ConceptMap MapImportTemplateToConceptMap(ImportTemplate it)
+        public ConceptMap MapImportTemplateToConceptMap(FhirImportTemplate it)
         {
             ConceptMap cm = new ConceptMap();
             cm.Name = it.Name;
@@ -81,9 +81,9 @@ namespace ikem23_wapi.Services
         }
 
 
-        public ImportTemplate MapConceptMapToImportTemplate(ConceptMap cm)
+        public FhirImportTemplate MapConceptMapToImportTemplate(ConceptMap cm)
         {
-            ImportTemplate it = new ImportTemplate();
+            FhirImportTemplate it = new FhirImportTemplate();
             it.Name = cm.Name;
             it.Id = int.Parse(cm.Id);
 

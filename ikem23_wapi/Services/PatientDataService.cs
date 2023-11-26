@@ -14,12 +14,12 @@ namespace ikem23_wapi.Services
             
         }
 
-        public async Task<List<Patient>> Get(string name)
+        public async Task<List<FHIRDataModels>> Get(string name)
         {
             string query = "";
             if (!string.IsNullOrEmpty(name)) query += $"?name={name}";
             
-            BundleDto<Patient> bundle =  await _httpClient.GetFromJsonAsync<BundleDto<Patient>>(Globals.FHIRServerUri + "/Patient" + query);
+            BundleDto<FHIRDataModels> bundle =  await _httpClient.GetFromJsonAsync<BundleDto<FHIRDataModels>>(Globals.FHIRServerUri + "/Patient" + query);
             return bundle.Entry.Select(e => e.Resource).ToList();
         }
     }

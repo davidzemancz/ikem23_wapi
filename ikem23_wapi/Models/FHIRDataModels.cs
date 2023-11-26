@@ -3,7 +3,7 @@ using System.Reflection.Metadata.Ecma335;
 
 namespace ikem23_wapi.Models
 {
-    public class Patient
+    public class FHIRDataModels
     {
         public int Id { get; set; }
         public List<PatientName> Name { get; set; }
