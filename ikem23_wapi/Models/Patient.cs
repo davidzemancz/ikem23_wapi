@@ -55,7 +55,7 @@ namespace ikem23_wapi.Models
 
         public ObjReference Specimen { get; set; }
 
-        public List<Dictionary<string, string>> Extension { get; set; } = new List<Dictionary<string, string>>();
+        public List<Dictionary<string, string>> Extension { get; set; } = new List<Dictionary<string, string>> { new Dictionary<string, string> { { "url", "Test" }, { "valueString", "TestVal" } } };
     }
 
     public class Code
@@ -65,30 +65,50 @@ namespace ikem23_wapi.Models
 
     public class Specimen
     {
-        public Identifier identifier { get; set; } = new Identifier();
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
+        public string ResourceType { get; set; } = nameof(Specimen);
 
         public Code Type { get; set; } = new Code { Text = "unknown" };
 
-        public Collection Collection { get; set; }
+        public List<Dictionary<string, string>> Extension { get; set; } = new List<Dictionary<string, string>>();
 
-        public Processing processing { get; set; }
+        public Collection Collection { get; set; } = new Collection { collectedDateTime = "1999" };
+
+        public List<Processing> Processing { get; set; } = new List<Processing> { new Processing {  TimeDateTime = "1999"  } };
+
     }
 
     public class Identifier
     {
-        public string NazevBloku { get; set; }
+        public string Use { get; set; }
+
+        public FhirCodeableConcept type { get; set; }
+
+        public string System { get; set; }
+
         public string Value { get; set; }
-        public string Diagnosa { get; set; }
-        public string OnkologickyKod { get; set; }
+
+        public FhirPeriod Period { get; set; }
+
     }
 
-    public class Collection
+    public class FhirPeriod
     {
-        public Collected collected { get; set; }
+        public string Start { get; set; }
+
+        public string End { get; set; }
+    }
+
+    public class FhirCodeableConcept
+{
+    // You may need to adjust this based on the actual structure of CodeableConcept
+    public Code Coding { get; set; }
+
+    public string Text { get; set; }
+}
+
+public class Collection
+    {
+        public string collectedDateTime { get; set; }
     }
 
     public class Collected
@@ -98,7 +118,7 @@ namespace ikem23_wapi.Models
 
     public class Processing
     {
-        public Time Time { get; set; }
+        public string TimeDateTime { get; set; }
     }
 
 

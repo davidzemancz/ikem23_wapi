@@ -155,7 +155,6 @@ namespace ikem23_wapi.Services
                         dict.Add("url", ObservationName.observationgeneticsAminoAcidChangeType);
                         dict.Add("valueString", cellVal.ToString());
                         observation.Extension.Add(dict);
-
                     }
                 }
             }
@@ -193,20 +192,26 @@ namespace ikem23_wapi.Services
 
                     if (colDef.Id == "Název bloku")
                     {
-                        specimen.identifier.NazevBloku = cellVal.ToString();
+                        //specimen.identifier.NazevBloku = cellVal.ToString();
                     }
 
                     if (colDef.Id == "ID biopsie")
                     {
-                        specimen.identifier.Value = cellVal.ToString();
+                        //specimen.identifier.Value = cellVal.ToString();
                     }
                     if (colDef.Id == "příjem LMP")
                     {
-                        specimen.Collection.collected.CollectedDateTime = cellVal.ToString();
+                        if (cellVal.ToString() != "")
+                        {
+                            specimen.Collection.collectedDateTime = cellVal.ToString();
+                        }
                     }
                     if (colDef.Id == "uzavření LMP")
                     {
-                        specimen.processing.Time.TimeDateTime = cellVal.ToString();
+                        if (cellVal.ToString() != "")
+                        {
+                            specimen.Processing.Add(new Processing { TimeDateTime = cellVal.ToString() });
+                        }
                     }
                 }
             }

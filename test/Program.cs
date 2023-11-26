@@ -26,9 +26,9 @@ namespace test
             await patientRecordService.Post(new PatientRecordCreateDto()
             {
                 PacientId = 1,
-                Diagnoza = "Smol pp",
-                OnkologickyKod = "69 string",
-                IdBiopsie = "fdgdsgdsgdsgs",
+                Diagnoza = "00059",
+                OnkologickyKod = "8190/0",
+                IdBiopsie = "5355/23",
                 Files = new List<PatientRecordFileDto>() { new PatientRecordFileDto() { Template = it, File = stream } }
 
             });
@@ -37,7 +37,7 @@ namespace test
         public static ImportTemplate loadTestTemplate()
         {
             ImportTemplate it = new ImportTemplate();
-            it.Name = "nezbijej me pls";
+            it.Name = "Default VFN Template";
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "A", Id = "chromosome" });
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "B", Id = "Region" });
             it.ColumnMapping.Add(new ColumnDefinition { ExcelColumnLetter = "D", Id = "ReferenceAllele" });

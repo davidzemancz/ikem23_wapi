@@ -1,4 +1,5 @@
 ﻿using DocumentFormat.OpenXml.Drawing;
+using DocumentFormat.OpenXml.Spreadsheet;
 using ikem23_wapi.DTOs;
 using ikem23_wapi.Models;
 using System.Text.Json;
@@ -82,9 +83,23 @@ namespace ikem23_wapi.Services
                 var sequence = _excelReaderService.ReadMolecularSequence(file.File, file.Template, patientRecorDto);
 
                 Specimen specimen = new Specimen();
-                specimen.identifier.Value = patientRecorDto.IdBiopsie.ToString();
-                specimen.identifier.Diagnosa = patientRecorDto.Diagnoza.ToString();
-                specimen.identifier.OnkologickyKod = patientRecorDto.OnkologickyKod.ToString();
+                
+                Dictionary<string, string> dict = new Dictionary<string, string>();
+                dict.Add("url", patientRecorDto.IdBiopsie);
+                dict.Add("valueString", patientRecorDto.IdBiopsie);
+                specimen.Extension.Add(dict);
+
+                Dictionary<string, string> dict2 = new Dictionary<string, string>();
+                dict2.Add("url", patientRecorDto.Diagnoza);
+                dict2.Add("valueString", patientRecorDto.Diagnoza);
+
+                specimen.Extension.Add(dict2);
+
+                Dictionary<string, string> dict3 = new Dictionary<string, string>();
+                dict3.Add("url", patientRecorDto.OnkologickyKod);
+                dict3.Add("valueString", patientRecorDto.OnkologickyKod);
+
+                specimen.Extension.Add(dict3);
 
                 string sGuid = Guid.NewGuid().ToString();
                 string sFullUrl = "urn:uuid:" + sGuid;
@@ -131,12 +146,8 @@ namespace ikem23_wapi.Services
                         {
                             Method = "POST",
                             Url = "Observation",
-                            //IfNoneExist = "identifier=urn:oid:2.16.528.1.1007.3.1|93827369"
                         }
                     });
-
-                    
-
                 }
             }
 
